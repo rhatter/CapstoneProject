@@ -6,7 +6,6 @@ import axios from "axios";
 import { Col } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import DetailedArticle from "../components/DetailedArticle/DetailedArticle";
-import NewComment from "../components/NewComment/NewComment";
 import Comments from "../components/Comments/Comments";
 
 function Details() {
