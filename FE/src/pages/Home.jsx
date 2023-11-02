@@ -3,6 +3,7 @@ import MyNavBar from "../components/NavBar/NavBar";
 import "./Home.css";
 import Articles from "../components/Articles/Articles";
 import SearchBar from "../components/SearchBar/SearchBar";
+import Maps from "../components/Map/Maps";
 
 function Home() {
   const [user, setUser] = useState(null);
@@ -21,6 +22,9 @@ function Home() {
     <>
       <div className="homeNav">
         <MyNavBar />
+      </div>
+      <div>
+        <Maps />
       </div>
       <SearchBar />
       <Articles />
