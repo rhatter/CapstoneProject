@@ -1,0 +1,14 @@
+.ArticlesArea {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: #93adcf;
+}
+
+.ArticlesArea > div {
+  display: flex;
+  justify-content: start;
+  flex-direction: row;
+  flex-wrap: wrap;
+}

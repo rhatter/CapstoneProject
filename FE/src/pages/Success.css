@@ -1,0 +1,253 @@
+.successPage > .navbar {
+  background-color: #8fa932;
+}
+
+.successPage > .successPage {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-position: center;
+  background-size: cover;
+  background: #5a7b41;
+  background-size: cover;
+  background-position: center;
+}
+.successPage > .column {
+  background: #8fa932;
+}
+
+.imageArea {
+  width: 100%;
+  height: 100%;
+  background-position: right;
+  background-size: cover;
+}
+
+.formArea {
+  height: auto;
+  width: 100%;
+}
+.formArea > form > * {
+  margin: 0.4rem 0;
+}
+
+.formArea form {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.701);
+  font-size: larger;
+  padding: 0 2rem;
+  height: 100%;
+}
+.formArea .inputArea {
+  width: 80%;
+  font-size: 1.1rem;
+  background-color: rgba(255, 255, 255, 0);
+  display: flex;
+  justify-content: center;
+}
+
+.formArea input,
+.formArea label {
+  border-radius: 2rem;
+  padding: 0 1.4rem;
+  width: 100%;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.359);
+  color: white;
+  transform: 0.5s ease;
+}
+
+::-webkit-input-placeholder {
+  color: rgb(244, 244, 244) !important;
+  opacity: 1;
+}
+input:focus-visible::-webkit-input-placeholder {
+  color: #005c649b !important;
+  opacity: 1;
+}
+::-moz-placeholder {
+  color: rgb(244, 244, 244) !important;
+  opacity: 1;
+}
+::-ms-placeholder {
+  color: rgb(244, 244, 244) !important;
+  opacity: 1;
+}
+::placeholder {
+  color: rgb(244, 244, 244) !important;
+  opacity: 1;
+}
+
+.formArea input:focus-visible,
+.formArea input:focus-visible {
+  border: white;
+  outline: none;
+  background-color: rgb(255, 255, 255);
+  color: #005c64;
+}
+
+.successPage .succButt {
+  border: none;
+  border-radius: 2rem;
+  font-size: 1.2rem;
+  margin-top: 1.4rem;
+  height: 2.2rem;
+  background-color: rgba(255, 255, 255, 0.359);
+  font-weight: 600;
+  color: #ffffff;
+  transition: 0.3s ease;
+  width: 35%;
+}
+.successPage .preFormArea {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-flow: column;
+  align-items: center;
+  width: 30rem;
+}
+
+.preFormArea .registrati {
+  margin-bottom: 3rem;
+}
+
+.formArea button:hover {
+  background-color: #ffffffc1;
+  color: #005c64;
+  width: 50%;
+}
+.preFormArea .registrati:hover {
+  background-color: #ffead3;
+  color: #c88d7a;
+  width: 30%;
+}
+
+.formArea .titleArea {
+  font-size: 2.4rem;
+  display: flex;
+  justify-content: center;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+
+.column {
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+input[type="radio"].radioButt:checked {
+  padding: 0;
+}
+
+input[type="radio"].radioButt {
+  display: none;
+}
+
+.radioButt {
+  width: 5rem !important;
+}
+
+label {
+  text-align: center;
+  padding: 0 !important;
+  margin: 0 !important;
+  padding: 0px;
+  width: 5rem;
+}
+.areaRadio {
+  display: flex !important;
+  justify-content: space-evenly !important;
+}
+
+.radioButt.selected {
+  background-color: white;
+  color: #005c6498;
+}
+
+button.unsendable {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.linkTo {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.lds-ripple {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  transform: scale(4);
+}
+.lds-ripple div {
+  position: absolute;
+  border: 4px solid #fff;
+  opacity: 1;
+  border-radius: 50%;
+  animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+.lds-ripple div:nth-child(2) {
+  animation-delay: -0.5s;
+}
+@keyframes lds-ripple {
+  0% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+  4.9% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+  5% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    top: 0px;
+    left: 0px;
+    width: 72px;
+    height: 72px;
+    opacity: 0;
+  }
+}
+
+.loaderBack {
+  background-color: #8fa932;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+}

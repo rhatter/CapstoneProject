@@ -1,0 +1,27 @@
+.usableArea {
+  display: flex;
+  flex-flow: row;
+}
+
+.usableArea > :nth-child(1) {
+  transition: 0.3s ease;
+  width: 100%;
+}
+.usableArea > :nth-child(2) {
+  width: 0%;
+  transition: width 0.3s ease;
+  visibility: hidden;
+  overflow: hidden;
+  margin-top: 2rem;
+  position: sticky;
+  height: fit-content;
+  top: 9rem;
+}
+
+.usableArea > :nth-child(2).visible {
+  width: 30%;
+}
+
+.homeNav > .navbar {
+  background-color: #7793b8 !important;
+}

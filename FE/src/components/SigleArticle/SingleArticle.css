@@ -1,0 +1,96 @@
+.CardImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.CardImage {
+  height: 100%;
+  width: 100%;
+}
+
+.CardImageArea {
+  width: 40%;
+}
+.Card {
+  display: flex;
+  flex-flow: row;
+  height: 15rem;
+  margin: 0 0;
+  background-color: #34537b;
+  color: white;
+  transition: 0.3s ease;
+  z-index: 2;
+}
+.Card:hover {
+  background-color: #4c6c96;
+}
+
+.CardTextArea {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 1rem;
+}
+
+.ContentArea {
+  height: 100%;
+  overflow: hidden;
+  border-bottom: solid 1px rgba(255, 255, 255, 0.336);
+}
+.title {
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-top: 0.4rem;
+}
+.ReadTimeArea {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.626);
+  margin-bottom: 0.2rem;
+}
+
+.category {
+  font-size: 0.6rem;
+  border: solid 1px rgba(255, 255, 255, 0.174);
+  color: rgba(255, 255, 255, 0.518);
+  padding: 0 8px;
+  background-color: rgba(255, 255, 255, 0.038);
+  border-radius: 20px;
+}
+.category:hover {
+  background-color: rgba(255, 255, 255, 0.11);
+}
+
+.categoryArea {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 6px;
+}
+
+.cardArea {
+  margin-bottom: 1rem;
+}
+.Card {
+  overflow: hidden;
+}
+
+.notcommentable {
+  height: 0;
+}
+.commentable {
+  height: 2rem;
+}
+.modifyArticle {
+  z-index: 0;
+  overflow: hidden;
+}
+
+.Card p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 4;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}

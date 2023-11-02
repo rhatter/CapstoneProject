@@ -1,0 +1,42 @@
+.searchBarArea {
+  width: 100%;
+  background-image: url("https://images.pexels.com/photos/1261728/pexels-photo-1261728.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+}
+
+.searchBarArea > span {
+  font-size: 2.8rem;
+  color: white;
+  font-weight: 600;
+  text-shadow: 0px 2px 3px black;
+}
+
+.searchBarArea input {
+  border: none;
+  width: 100%;
+  margin-left: 2rem;
+}
+
+.searchBarArea button {
+  height: 100%;
+  border-bottom-right-radius: 2rem;
+  border-top-right-radius: 2rem;
+  border: none;
+  width: 8rem;
+}
+.searchBarArea > .InputArea {
+  background-color: white;
+  border-radius: 4rem;
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 3rem;
+  margin: 2rem 0rem;
+}

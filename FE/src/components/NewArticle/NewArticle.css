@@ -1,0 +1,104 @@
+.newArticlePage {
+  height: 100%;
+  position: relative;
+  top: 0;
+  display: flex;
+
+  width: 100%;
+  justify-content: center;
+}
+
+.newArticlePage .formArea textarea {
+  height: 10rem;
+}
+.newArticlePage .formArea .title textarea {
+  height: 4.5rem;
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.8rem;
+}
+.newArticlePage .formArea .content textarea {
+  height: 20rem;
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.8rem;
+}
+
+.newArticlePage .formArea .time input {
+  border-radius: 0.5rem;
+  width: 3rem;
+  padding: 0.2rem;
+  text-align: center;
+}
+.newArticlePage .inputArea.time,
+.newArticlePage .inputArea.unit {
+  width: unset;
+}
+.newArticlePage input::-webkit-outer-spin-button,
+.newArticlePage input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.newArticlePage input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.newArticlePage .formArea .unit select {
+  border-radius: 0.5rem;
+  width: 7rem;
+  padding: 0.2rem;
+  text-align: center;
+}
+
+.newArticlePage .formArea .file label {
+  width: 8rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.newArticlePage .formArea .file {
+  width: auto;
+}
+
+.newArticlePage .timeArea {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+.newArticlePage .inputArea {
+  width: 100%;
+}
+
+.newArticlePage button {
+  border: none;
+  border-radius: 2rem;
+  font-size: 1.2rem;
+  margin-top: 1.4rem;
+  height: 2.2rem;
+  background-color: rgba(255, 255, 255, 0.359);
+  font-weight: 600;
+  color: #ffffff;
+  transition: 0.3s ease;
+  width: 35%;
+}
+
+.myArticlePage .box {
+  transition: height 0.6s ease;
+  height: 45rem;
+  padding-bottom: 2rem;
+  z-index: 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.myArticlePage .box.collaps {
+  height: 0px;
+  z-index: -1;
+  padding-bottom: 0rem;
+}
+.myArticlePage .commentArea {
+  width: 100%;
+}

@@ -1,0 +1,71 @@
+.modifyArticlePage {
+  background-color: rgb(0, 40, 75);
+  height: 100%;
+  position: absolute;
+  top: 0;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+}
+.formArea textarea {
+  height: 10rem;
+}
+.formArea .title textarea {
+  height: 5rem;
+  border-radius: 1rem;
+}
+.formArea .content textarea {
+  height: 20rem;
+  border-radius: 1rem;
+}
+
+.formArea .time input {
+  border-radius: 1rem;
+  width: 6rem;
+  padding: 0.2rem;
+  text-align: center;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.formArea .unit input {
+  width: 8rem;
+  border-radius: 1rem;
+  text-align: center;
+}
+
+.formArea .file label {
+  width: 13rem;
+  border-radius: 1rem;
+}
+
+.timeArea {
+  display: flex;
+  width: 18rem;
+}
+
+.modifyArticlePage .inputArea {
+  width: 100%;
+}
+
+.modifyArticlePage button {
+  border: none;
+  border-radius: 2rem;
+  font-size: 1.2rem;
+  margin-top: 1.4rem;
+  height: 2.2rem;
+  background-color: rgba(255, 255, 255, 0.359);
+  font-weight: 600;
+  color: #ffffff;
+  transition: 0.3s ease;
+  width: 35%;
+}
