@@ -16,35 +16,37 @@ let DefaultIcon = L.icon({
 L.Marker.prototype.options.icon = DefaultIcon;
 
 const Maps = () => {
-  const [position, setPosition] = useState(null);
+  const [position, setPosition] = useState(useGeoloc());
   const RisultatoGeoloc = useGeoloc();
-  console.log(RisultatoGeoloc);
+
+  console.log("risultato geoloc", RisultatoGeoloc);
   useEffect(() => {
-    if (!RisultatoGeoloc) {
-      setPosition(RisultatoGeoloc);
-    }
+    setPosition(RisultatoGeoloc);
+    console.log("position", position);
   }, []);
 
-  return (
-    <div id="map" style={{ height: "30rem" }}>
-      <MapContainer
-        style={{ height: "100%" }}
-        center={[position.longitude, position.latitude]}
-        zoom={13}
-        scrollWheelZoom={true}
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <Marker position={[position.longitude, position.latitude]}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
-      </MapContainer>
-    </div>
-  );
+  const mappa = () => {
+    return (
+      <div id="map" style={{ height: "30rem" }}>
+        <MapContainer
+          style={{ height: "100%" }}
+          center={[position.latitude, position.longitude]}
+          zoom={13}
+          scrollWheelZoom={true}
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          <Marker position={[position.latitude, position.longitude]}>
+            <Popup>Torino</Popup>
+          </Marker>
+        </MapContainer>
+      </div>
+    );
+  };
+
+  return <>{position.latitude && mappa()}</>;
 };
 
 export default Maps;

@@ -1,0 +1,9 @@
+.campiForm {
+  display: flex;
+  flex-direction: row;
+}
+
+.campiForm input:focus {
+  border: 1px solid black;
+  box-shadow: none;
+}
