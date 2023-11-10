@@ -7,11 +7,11 @@ const useFromTextToCoord = (e) => {
   geocoder
     .search({ q: "Berlin, Germany" })
     .then((response) => {
-      console.log(response);
+      //console.log(response);
       return response;
     })
     .catch((error) => {
-      console.log(error);
+      //console.log(error);
     });
 };
 

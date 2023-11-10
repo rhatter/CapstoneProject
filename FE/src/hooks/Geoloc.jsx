@@ -14,9 +14,9 @@ const useGeoloc = (a) => {
   function success(position) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
-    console.log(
-      `dal custom hook Latitude: ${latitude}, Longitude: ${longitude}`
-    );
+    // console.log(
+    //   `dal custom hook Latitude: ${latitude}, Longitude: ${longitude}`
+    // );
     pos.latitude = latitude;
     pos.longitude = longitude;
   }

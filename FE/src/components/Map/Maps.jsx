@@ -7,6 +7,8 @@ import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import useGeoloc from "../../hooks/Geoloc";
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { CoordUpdate } from "../../reducers/generalCoord";
 
 let DefaultIcon = L.icon({
   iconUrl: icon,
@@ -18,12 +20,23 @@ L.Marker.prototype.options.icon = DefaultIcon;
 const Maps = () => {
   const [position, setPosition] = useState(useGeoloc());
   const RisultatoGeoloc = useGeoloc();
-
   console.log("risultato geoloc", RisultatoGeoloc);
+
+  //con redux
+  const dispatch = useDispatch();
+  const select = () => {
+    dispatch(CoordUpdate());
+  };
+
+  const coord = useSelector((state) => state.coord.value);
+  console.log(coord);
   useEffect(() => {
+    select();
+    console.log("coordinate da redux", coord);
     setPosition(RisultatoGeoloc);
-    console.log("position", position);
   }, []);
+
+  //con custom hook
 
   const mappa = () => {
     return (

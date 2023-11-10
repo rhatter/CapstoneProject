@@ -20,7 +20,7 @@ function Articles() {
   }
 
   const createArticles = () => {
-    console.log("article data", articlesData);
+    //console.log("article data", articlesData);
     return (
       <div className="ArticlesArea">
         <Col xs={12} md={12}>
