@@ -4,34 +4,15 @@ export const redCoord = createSlice({
   name: "coord",
   initialState: {
     value: { latitude: null, longitude: null },
+
+    error: null,
   },
   reducers: {
     CoordUpdate: (state, action) => {
-      const getGeo = () => {
-        try {
-          if (navigator.geolocation) {
-            const result = navigator.geolocation.getCurrentPosition(
-              success,
-              error
-            );
-          } else {
-            console.log("Geolocation not supported");
-          }
-        } catch (error) {}
+      state.value = {
+        latitude: action.payload.latitude,
+        longitude: action.payload.longitude,
       };
-
-      function success(position) {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
-        console.log(
-          `dal custom hook Latitude: ${latitude}, Longitude: ${longitude}`
-        );
-        state.value.latitude = latitude;
-        state.value.longitude = longitude;
-      }
-      function error() {
-        console.log("Unable to retrieve your location");
-      }
     },
   },
 });

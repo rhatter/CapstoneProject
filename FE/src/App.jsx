@@ -11,26 +11,39 @@ import UserDetail from "./pages/UserDetail";
 import MydataPage from "./pages/MydataPage";
 import MyArticles from "./pages/MyArticles";
 import ModifyArticle from "./pages/ModifyArticle";
+import { nanoid } from "nanoid";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route path="/book/:bookId" element={<Details />} />
+        <Route exact path="/" element={<Home />} key={nanoid()} />
+        <Route path="/book/:bookId" element={<Details />} key={nanoid()} />
 
-        <Route path="/success/:token" element={<Success />} />
-        <Route path="/Login" element={<Login />} />
-        <Route path="/Signin" element={<Signin />} />
+        <Route path="/success/:token" element={<Success />} key={nanoid()} />
+        <Route path="/Login" element={<Login />} key={nanoid()} />
+        <Route path="/Signin" element={<Signin />} key={nanoid()} />
 
-        <Route element={<Protected />}>
-          <Route path="/book/user/:bookId" element={<UserDetail />} />
-          <Route path="/book/mydata" element={<MydataPage />} />
-          <Route path="/myarticle/:userID" element={<MyArticles />} />
-          <Route path="/modyfyarticle/:articleID" element={<ModifyArticle />} />
+        <Route element={<Protected />} key={nanoid()}>
+          <Route
+            path="/book/user/:bookId"
+            element={<UserDetail />}
+            key={nanoid()}
+          />
+          <Route path="/book/mydata" element={<MydataPage />} key={nanoid()} />
+          <Route
+            path="/myarticle/:userID"
+            element={<MyArticles />}
+            key={nanoid()}
+          />
+          <Route
+            path="/modyfyarticle/:articleID"
+            element={<ModifyArticle />}
+            key={nanoid()}
+          />
         </Route>
 
-        <Route path="*" element={<Error />} />
+        <Route path="*" element={<Error />} key={nanoid()} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { nanoid } from "nanoid";
 //per fare una paginazione facile facile
 import ResponsivePagination from "react-responsive-pagination";
 import "react-responsive-pagination/themes/classic.css";
@@ -19,14 +19,14 @@ const Pagination = () => {
     const posts = await axios.get(
       `${process.env.REACT_APP_URL}/posts?page=${page}&pageSize=${pageSize}`
     );
-    console.log(
-      "from pagination",
-      `${process.env.REACT_APP_URL}/posts?page=${page}&pageSize=${pageSize}`
-    );
+    // console.log(
+    //   "from pagination",
+    //   `${process.env.REACT_APP_URL}/posts?page=${page}&pageSize=${pageSize}`
+    // );
     setPosts(posts.data.posts);
     setPage(posts.data.currentPage);
     setTotalPages(posts.data.totalPages);
-    console.log(posts);
+    //console.log(posts);
     return posts;
   }
 
@@ -46,7 +46,7 @@ const Pagination = () => {
   return (
     <>
       {posts.map((post) => (
-        <SingleArticle post={post} />
+        <SingleArticle post={post} key={nanoid()} />
       ))}
       <Col xs={12}>
         {totalPages && (

@@ -11,7 +11,7 @@ function SingleArticle({ post, modify, articleID }) {
   const [commentable, setCommentable] = useState(false);
 
   useEffect(() => {
-    console.log("dati", post);
+    //console.log("dati", post);
   }, []);
   const userData = JSON.parse(localStorage.getItem("userLocalData"));
   const dirToDetails = () => {

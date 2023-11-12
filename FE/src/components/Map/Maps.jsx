@@ -18,32 +18,16 @@ let DefaultIcon = L.icon({
 L.Marker.prototype.options.icon = DefaultIcon;
 
 const Maps = () => {
-  const [position, setPosition] = useState(useGeoloc());
-  const RisultatoGeoloc = useGeoloc();
-  console.log("risultato geoloc", RisultatoGeoloc);
+  const [position, setPosition] = useState({ latitude: null, longitude: null });
 
-  //con redux
-  const dispatch = useDispatch();
-  const select = () => {
-    dispatch(CoordUpdate());
-  };
-
-  const coord = useSelector((state) => state.coord.value);
-  console.log(coord);
-  useEffect(() => {
-    select();
-    console.log("coordinate da redux", coord);
-    setPosition(RisultatoGeoloc);
-  }, []);
-
-  //con custom hook
+  const coord = useSelector((select) => select);
 
   const mappa = () => {
     return (
       <div id="map" style={{ height: "30rem" }}>
         <MapContainer
           style={{ height: "100%" }}
-          center={[position.latitude, position.longitude]}
+          center={[coord.coord.value.latitude, coord.coord.value.longitude]}
           zoom={13}
           scrollWheelZoom={true}
         >
@@ -51,7 +35,9 @@ const Maps = () => {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <Marker position={[position.latitude, position.longitude]}>
+          <Marker
+            position={[coord.coord.value.latitude, coord.coord.value.longitude]}
+          >
             <Popup>Torino</Popup>
           </Marker>
         </MapContainer>
@@ -59,7 +45,7 @@ const Maps = () => {
     );
   };
 
-  return <>{position.latitude && mappa()}</>;
+  return <>{coord.coord.value.latitude && mappa()}</>;
 };
 
 export default Maps;

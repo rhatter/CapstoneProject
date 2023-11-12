@@ -6,6 +6,7 @@ import SearchBar from "../components/SearchBar/SearchBar";
 import Maps from "../components/Map/Maps";
 import useFromTextToCoord from "../hooks/FromTextToCoord";
 import IndirizziForm from "../components/IndirizziForm/IndirizziForm";
+import { nanoid } from "nanoid";
 
 function Home() {
   const [user, setUser] = useState(null);
