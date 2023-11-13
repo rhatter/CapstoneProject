@@ -1,9 +1,138 @@
 .campiForm {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .campiForm input:focus {
-  border: 1px solid black;
   box-shadow: none;
+}
+
+.campiForm input,
+.campiForm input:focus-within,
+.InputArea .css-13cymwt-control,
+.InputArea .css-t3ipsp-control {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+  border-bottom: 2px solid #7793b862;
+  color: #7793b8;
+  margin: 0px 0rem;
+  padding: 0rem 0.1rem;
+  font-size: 1.2rem;
+  width: 100%;
+  outline: none;
+  box-shadow: none;
+}
+.InputArea .css-12a83d4-MultiValueRemove {
+  transition: 0.3s ease;
+}
+.InputArea .css-1jqq78o-placeholder {
+  color: #7793b862;
+}
+.InputArea .css-1nmdiq5-menu {
+  color: #7793b8;
+  border-radius: 0px;
+  overflow: hidden;
+}
+.InputArea .css-1nmdiq5-menu > div {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.InputArea .css-12a83d4-MultiValueRemove:hover {
+  background-color: #4f617962;
+  color: white;
+}
+
+.InputArea .css-t3ipsp-control:hover {
+  border-bottom: 2px solid #7793b862;
+}
+
+.campiForm input::-moz-placeholder {
+  color: #7793b862 !important;
+  opacity: 1;
+}
+.campiForm input::-ms-placeholder {
+  color: #7793b862 !important;
+  opacity: 1;
+}
+.campiForm input::placeholder {
+  color: #7793b862 !important;
+  opacity: 1;
+}
+
+.campiForm input:focus-within::placeholder {
+  color: #7793b8 !important;
+}
+
+.campiForm .inputArea {
+  width: 100%;
+}
+
+.campiForm button {
+  background-color: #7793b8;
+  border: none;
+  width: 3rem;
+  aspect-ratio: 1;
+  height: 3rem;
+}
+
+.campiForm button {
+  border-radius: 100%;
+}
+
+.campiForm button:hover {
+  background-color: #5a708d;
+}
+
+.FormArea {
+  padding: 2rem 1rem;
+  width: 100%;
+  display: flex;
+}
+.InputArea {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.InputArea .Paese,
+.InputArea .Citta {
+  padding: 0 1rem;
+  width: 50%;
+}
+
+.InputArea .css-13cymwt-control {
+  padding: 0.2rem 1rem;
+  width: 100%;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+  border-bottom: 2px solid #7793b862;
+  color: #7793b8;
+  margin: 0px 0rem;
+  padding: 0rem 0.1rem;
+  font-size: 1.2rem;
+  width: 100%;
+}
+.InputArea .Topics {
+  width: 100%;
+  padding: 0rem 0.5rem;
+}
+
+.FormSpace {
+  display: flex;
+  justify-content: center;
+}
+
+.InputArea .Topics .css-1p3m7a8-multiValue {
+  background-color: #7793b862;
+  color: white;
+}
+.InputArea .Topics .css-wsp0cs-MultiValueGeneric {
+  color: white;
 }

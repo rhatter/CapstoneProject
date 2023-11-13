@@ -31,10 +31,10 @@ function Home() {
       </div>
 
       <div>
+        {1 === 0 && <SearchBar />}
         <Maps />
         <IndirizziForm />
       </div>
-      <SearchBar />
       <Articles />
     </>
   );
