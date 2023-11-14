@@ -6,6 +6,7 @@ import { Container, Col, Row } from "react-bootstrap";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DeletButton from "../DeleteButton/DeletButton";
+import { nanoid } from "nanoid";
 
 function SingleArticle({ post, modify, articleID }) {
   const [commentable, setCommentable] = useState(false);
@@ -26,7 +27,7 @@ function SingleArticle({ post, modify, articleID }) {
 
   return (
     <>
-      <Col className="cardArea" sm={12} lg={12} xl={6}>
+      <Col className="cardArea" xs={12} lg={12} xl={6}>
         <div
           className="Card"
           onClick={() => {
@@ -49,12 +50,13 @@ function SingleArticle({ post, modify, articleID }) {
             </div>
             <div className="ReadTimeArea">
               <span className="Author">{post.author.name}</span>
-              <span className="ReadTime">
-                {post.readTime.value} {post.readTime.unit}
-              </span>
             </div>
             <div className="categoryArea">
-              <span className="category">{post.category}</span>
+              {post.topic.map((e) => (
+                <span key={nanoid()} className="category">
+                  {e}
+                </span>
+              ))}
             </div>
           </div>
         </div>

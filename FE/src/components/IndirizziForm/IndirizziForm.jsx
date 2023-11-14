@@ -5,6 +5,7 @@ import "./IndirizziForm.css";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { CoordUpdate } from "../../reducers/generalCoord";
+import { getArticles } from "../../reducers/filteredArticle";
 import useGeoloc from "../../hooks/Geoloc";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -17,6 +18,9 @@ import Select from "react-select";
 
 const IndirizziForm = () => {
   const [selectedOption, setSelectedOption] = useState(null);
+  const [paese, setPaese] = useState(null);
+  const [citta, setCitta] = useState(null);
+
   const dispatch = useDispatch();
   const coordthis = useGeoloc();
   const Selected = async () => {
@@ -33,21 +37,53 @@ const IndirizziForm = () => {
     { value: "topic2", label: "Topic 2" },
     { value: "topic3", label: "Topic 3" },
   ];
+  const searchLocations = (e) => {
+    e.preventDefault();
+    dispatch(
+      getArticles({ topics: selectedOption, paese: paese, citta: citta })
+    );
+    console.log("clicked");
+  };
+
+  const dataToGet = () => {};
+
+  const updateState = (e) => {
+    switch (e.target.name) {
+      case "paese":
+        setPaese(e.target.value);
+        break;
+      case "citta":
+        setCitta(e.target.value);
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <Col sm={12} className="FormSpace">
       <Col sm={12} md={10} lg={8} xl={6}>
-        <Form className="FormArea">
+        <Form className="FormArea" onSubmit={searchLocations}>
           <Form.Group className="mb-3 campiForm" controlId="formBasicEmail">
             <Button variant="primary" onClick={Selected} className="Geoloc">
               <FontAwesomeIcon icon={faLocationDot} />
             </Button>
             <div className="InputArea">
               <div className="Paese">
-                <input type="text" placeholder="Scegli il Paese" name="Paese" />
+                <input
+                  type="text"
+                  placeholder="Scegli il Paese"
+                  name="paese"
+                  onChange={(e) => updateState(e)}
+                />
               </div>
               <div className="Citta">
-                <input type="text" placeholder="Scegli la Città" name="Citta" />
+                <input
+                  type="text"
+                  placeholder="Scegli la Città"
+                  name="citta"
+                  onChange={(e) => updateState(e)}
+                />
               </div>
               <div className="Topics">
                 <Select

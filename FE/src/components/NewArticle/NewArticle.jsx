@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import MyNavBar from "../NavBar/NavBar";
-import "./NewArticle.css";
+import { nanoid } from "nanoid";
 import axios from "axios";
 import { Col } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useNavigate, Link } from "react-router-dom";
 import jwt_decode from "jwt-decode";
+import { Country, State, City } from "country-state-city";
+import Select from "react-select";
+import "./NewArticle.css";
+import useFromTextToCoord from "../../hooks/FromTextToCoord";
 
 const NewArticle = ({ state }, setRefresh) => {
   const { commenting, setCommenting } = state;
@@ -15,29 +19,56 @@ const NewArticle = ({ state }, setRefresh) => {
   const [registerError, setRegisterError] = useState(null);
   const [image, setImage] = useState(null);
   const [changedImage, setChangedImage] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(null);
   const { articleID } = useParams();
   const userData = JSON.parse(localStorage.getItem("userLocalData"));
-
+  const [country, setCountry] = useState(null);
+  const [dataToCoord, setDataToCoord] = useState(null);
   useEffect(() => {
     setFormData({
-      readTime: { unit: "Minuti", value: 15 },
-      category: "Avventura",
-      rate: 2.5,
       author: userData.id,
     });
   }, []);
 
+  const coord = useFromTextToCoord(dataToCoord);
+  console.log(coord);
   useEffect(() => {
-    if (formData.title && formData.content && formData.readTime && image) {
+    if (
+      formData.title &&
+      formData.content &&
+      image &&
+      formData.city &&
+      formData.country &&
+      formData.topic
+    ) {
       setSendable(true);
     } else {
       setSendable(false);
     }
   }, [formData, changedImage]);
 
+  //
+  const topicsOptions = [
+    { value: "topic1", label: "Topic 1" },
+    { value: "topic2", label: "Topic 2" },
+    { value: "topic3", label: "Topic 3" },
+  ];
+
+  const handleChange = (selectedOption) => {
+    setSelectedOption(selectedOption);
+    setFormData({
+      ...formData,
+      topic: selectedOption.map((e) => e.value),
+    });
+    console.log(formData);
+  };
+
+  //
+
   const uploadFile = async (cover) => {
     const fileData = new FormData();
     fileData.append("cover", cover);
+    console.log(cover);
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_URL}/posts/cloudUpload`,
@@ -48,8 +79,6 @@ const NewArticle = ({ state }, setRefresh) => {
       console.log(error, "errore in upload file");
     }
   };
-
-  const navigate = useNavigate();
 
   const renderRegisterError = () => {
     return (
@@ -71,6 +100,7 @@ const NewArticle = ({ state }, setRefresh) => {
         finalBody = {
           ...finalBody,
           cover: uploadCover.data.cover,
+          coord: { lat: coord[0].lat, lon: coord[0].lon },
         };
       }
       const response = await axios.post(
@@ -78,7 +108,7 @@ const NewArticle = ({ state }, setRefresh) => {
         finalBody
       );
       setCommenting(false);
-      window.location.reload(false);
+      //window.location.reload(false);
     } catch (error) {
       setRegisterError(error.response);
       console.log(error.response);
@@ -100,17 +130,28 @@ const NewArticle = ({ state }, setRefresh) => {
 
   const formDataImport = (e) => {
     const { name, value } = e.target;
-    if (name === "value" || name === "unit") {
-      setFormData({
-        ...formData,
-        readTime: { ...formData.readTime, [name]: value },
-      });
-      console.log(formData);
-    } else {
-      setFormData({ ...formData, [name]: value });
-      console.log(formData);
-    }
+    setFormData({ ...formData, [name]: value });
+    console.log(formData);
   };
+
+  const countryData = () => {
+    const countries = Country.getAllCountries().filter(
+      (e) =>
+        e.currency === "EUR" ||
+        e.currency === "USD" ||
+        e.currency === "HRK" ||
+        e.currency === "GBP"
+    );
+    //console.log(countries);
+    return countries;
+  };
+  const cityData = () => {
+    const cities = City.getCitiesOfCountry(
+      Country.getAllCountries().filter((e) => e.name === country)[0].isoCode
+    );
+    return cities;
+  };
+  if (country && cityData());
 
   //devo chiamare il singolo post
   return (
@@ -154,54 +195,61 @@ const NewArticle = ({ state }, setRefresh) => {
                       value={thisPost.content ? thisPost.content : ""}
                     ></textarea>
                   </div>
+                  <span className="Label">Dove sei stato?</span>
+                  <div className="inputArea country">
+                    <select
+                      list="country"
+                      type="text"
+                      placeholder="Paese"
+                      name="country"
+                      onChange={(e) => {
+                        setThisPost({
+                          ...thisPost,
+                          country: e.target.value,
+                        });
+                        formDataImport(e);
+                        setCountry(e.target.value);
+                      }}
+                    >
+                      {countryData().map((country) => (
+                        <option key={nanoid()}>{country.name}</option>
+                      ))}
+                    </select>
+
+                    <select
+                      id="countryInput"
+                      list="country"
+                      type="text"
+                      placeholder="Paese"
+                      name="city"
+                      onChange={(e) => {
+                        setThisPost({
+                          ...thisPost,
+                          country: e.target.value,
+                        });
+                        formDataImport(e);
+                        setDataToCoord(`${country}, ${e.target.value}`);
+                      }}
+                    >
+                      {country &&
+                        cityData().map((country) => (
+                          <option key={nanoid()}>{country.name}</option>
+                        ))}
+                    </select>
+                  </div>
+                  <span className="Label">Scegli la categoria giusta</span>
+                  <div className="Topics">
+                    <Select
+                      className=""
+                      isMulti
+                      options={topicsOptions}
+                      placeholder="Tipo di attività..."
+                      onChange={handleChange}
+                    />
+                  </div>
                   <div className="timeArea">
-                    <div className="inputArea time">
-                      <input
-                        type="number"
-                        name="value"
-                        onChange={(e) => {
-                          setThisPost({
-                            ...thisPost,
-                            readTime: {
-                              ...thisPost.readTime,
-                              value: e.target.value,
-                            },
-                          });
-                          formDataImport(e);
-                        }}
-                        placeholder={
-                          thisPost.readTime ? thisPost.readTime.value : 15
-                        }
-                        value={thisPost.readTime ? thisPost.readTime.value : 15}
-                      ></input>
-                    </div>
-                    <div className="inputArea unit">
-                      <select
-                        list="time"
-                        type="text"
-                        placeholder="reading time"
-                        name="unit"
-                        onChange={(e) => {
-                          setThisPost({
-                            ...thisPost,
-                            readTime: {
-                              ...thisPost.readTime,
-                              unit: e.target.value,
-                            },
-                          });
-                          formDataImport(e);
-                        }}
-                        value={
-                          thisPost.readTime ? thisPost.readTime.unit : "Minuti"
-                        }
-                      >
-                        <option value="Minuti">Minuti</option>
-                        <option value="Ore">Ore</option>
-                        <option value="Secondi">Secondi</option>
-                      </select>
-                    </div>
                     <div className="inputArea file">
-                      <label class="custom-file-upload">
+                      <label className="custom-file-upload">
                         <input
                           type="file"
                           placeholder="Immagine profilo"

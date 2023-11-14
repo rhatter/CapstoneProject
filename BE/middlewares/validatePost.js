@@ -7,16 +7,8 @@ const validatePost = (req, res, next) => {
     errors.push("Title must be a string");
   }
 
-  if (typeof category !== "string") {
-    errors.push("Category must be a string");
-  }
-
   if (typeof cover !== "string") {
     errors.push("Cover must be a string");
-  }
-
-  if (typeof rate !== "number") {
-    errors.push("Rate must be a number");
   }
 
   if (typeof author !== "string") {

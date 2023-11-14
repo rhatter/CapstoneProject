@@ -217,12 +217,13 @@ posts.get("/posts/byid/:id", async (req, res) => {
 posts.post("/posts/create", validatePost, async (req, res) => {
   const newPost = new PostModel({
     title: req.body.title,
-    category: req.body.category,
+    topic: req.body.topic,
     cover: req.body.cover,
-    rate: req.body.rate,
+    country: req.body.country,
+    city: req.body.city,
     author: req.body.author,
     content: req.body.content,
-    readTime: { value: req.body.readTime.value, unit: req.body.readTime.unit },
+    coord: { lat: req.body.coord.lat, lon: req.body.coord.lon },
   });
 
   try {

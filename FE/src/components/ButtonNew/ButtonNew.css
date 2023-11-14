@@ -57,4 +57,7 @@
 .newCommentArea {
   padding-top: 2rem;
   padding-bottom: 2rem;
+  background-color: #34537b;
+  z-index: 3;
+  position: relative;
 }

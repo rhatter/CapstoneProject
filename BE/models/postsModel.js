@@ -6,27 +6,15 @@ const PostsSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    category: {
-      type: String,
-      default: "General",
+    topic: {
+      type: Array,
+      required: true,
     },
     cover: {
       type: String,
       required: false,
     },
-    readTime: {
-      value: {
-        type: Number,
-        default: 60,
-        required: false,
-      },
-      unit: {
-        type: String,
-        required: false,
-        default: "Minutes",
-        enum: ["Minuti", "Ore", "Secondi"],
-      },
-    },
+
     rate: {
       type: Number,
       required: false,
@@ -41,10 +29,22 @@ const PostsSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    city: {
+      type: String,
+      required: true,
+    },
+    country: {
+      type: String,
+      required: true,
+    },
+    coord: {
+      lat: { type: String, required: true },
+      lon: { type: String, required: true },
+    },
   },
   { timestamps: true, strict: true }
 );
 
 //per scrivere i post si usa l'editor di bootstrap
 
-module.exports = mongoose.model("postModel", PostsSchema, "posts");
+module.exports = mongoose.model("postModel", PostsSchema, "TravelPosts");

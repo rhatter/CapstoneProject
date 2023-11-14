@@ -19,7 +19,6 @@ const MyArticlesBody = ({ articles }) => {
       content: e.content,
       cover: e.cover,
       _id: e._id,
-      readTime: { unit: e.readTime.unit, value: e.readTime.value },
       category: e.category,
       rate: e.rate,
     };

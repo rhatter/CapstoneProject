@@ -43,7 +43,7 @@ function ButtonNew({ state, bookId, setCommented }) {
           inCommenting();
         }}
       >
-        <span>+</span>
+        <span>{commenting ? "-" : "+"}</span>
       </div>
       <Col xs={10} md={8} lg={4}></Col>
     </div>

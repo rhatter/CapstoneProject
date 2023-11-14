@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 export const filteredArticle = createSlice({
   name: "FilteredArticles",
@@ -9,8 +10,9 @@ export const filteredArticle = createSlice({
   },
   reducers: {
     getArticles: async (state, action) => {
+      console.log(action);
       try {
-        setLoading(true);
+        state.loading = true;
         const response = await axios.get(action.payload.url);
         state.data = response.data;
       } catch (err) {
@@ -18,7 +20,6 @@ export const filteredArticle = createSlice({
       } finally {
         state.loading = false;
       }
-      return { data, error, loading };
     },
   },
   //

@@ -7,23 +7,51 @@
   width: 100%;
   justify-content: center;
 }
+.newArticlePage .formArea textarea,
+.newArticlePage .formArea select,
+.newArticlePage .formArea label {
+  background-color: rgba(255, 255, 255, 0);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.485);
+  resize: none;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.newArticlePage .formArea textarea:hover,
+.newArticlePage .formArea select:hover,
+.newArticlePage .formArea label:hover {
+  background-color: rgba(255, 255, 255, 0.221);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.485);
+  resize: none;
+}
+
+.newArticlePage .formArea textarea:focus-within,
+.newArticlePage .formArea select:focus-within {
+  background-color: rgba(255, 255, 255, 0.093);
+  box-shadow: none;
+  color: rgba(0, 0, 0, 0.845);
+}
+
+textarea:focus-within {
+  box-shadow: none;
+}
 
 .newArticlePage .formArea textarea {
   height: 10rem;
 }
 .newArticlePage .formArea .title textarea {
   height: 4.5rem;
-  border-radius: 0.5rem;
+  border-radius: 0rem;
   padding: 0.4rem 0.8rem;
 }
 .newArticlePage .formArea .content textarea {
   height: 20rem;
-  border-radius: 0.5rem;
+  border-radius: 0rem;
   padding: 0.4rem 0.8rem;
 }
 
 .newArticlePage .formArea .time input {
-  border-radius: 0.5rem;
+  border-radius: 0rem;
   width: 3rem;
   padding: 0.2rem;
   text-align: center;
@@ -39,20 +67,20 @@
 }
 
 /* Firefox */
-.newArticlePage input[type="number"] {
+/* .newArticlePage input[type="number"] {
   -moz-appearance: textfield;
-}
+} */
 
 .newArticlePage .formArea .unit select {
-  border-radius: 0.5rem;
+  border-radius: 0rem;
   width: 7rem;
   padding: 0.2rem;
   text-align: center;
 }
 
 .newArticlePage .formArea .file label {
-  width: 8rem;
-  border-radius: 0.5rem;
+  width: 6rem;
+  border-radius: 0rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -64,7 +92,8 @@
 .newArticlePage .timeArea {
   display: flex;
   width: 100%;
-  justify-content: space-evenly;
+  justify-content: center;
+  margin-top: 0.8rem;
 }
 
 .newArticlePage .inputArea {
@@ -73,7 +102,7 @@
 
 .newArticlePage button {
   border: none;
-  border-radius: 2rem;
+  border-radius: 0rem;
   font-size: 1.2rem;
   margin-top: 1.4rem;
   height: 2.2rem;
@@ -85,20 +114,90 @@
 }
 
 .myArticlePage .box {
-  transition: height 0.6s ease;
-  height: 45rem;
+  transition: height 0.9s ease, top 0.9s ease, opacity 0.4s ease 0.5s;
+  top: 0rem;
+  height: 53rem;
   padding-bottom: 2rem;
-  z-index: 0;
+  z-index: 3;
   position: relative;
   display: flex;
   justify-content: center;
+  opacity: 100;
+  background-color: #34537b;
 }
 
 .myArticlePage .box.collaps {
-  height: 0px;
+  top: -55rem;
+  height: 0rem;
   z-index: -1;
   padding-bottom: 0rem;
+  opacity: 0;
 }
 .myArticlePage .commentArea {
   width: 100%;
+}
+.inputArea.country {
+  justify-content: space-evenly;
+}
+.inputArea.country select {
+  border-radius: 0;
+  width: 40%;
+}
+.newArticlePage input,
+.newArticlePage input:focus-within,
+.newArticlePage .css-13cymwt-control,
+.newArticlePage .css-t3ipsp-control {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.485);
+  color: #ffffff;
+  margin: 0px 0rem;
+  padding: 0rem 0.1rem;
+  font-size: 1rem;
+  width: 100%;
+  outline: none;
+  box-shadow: none;
+  background-color: #7793b800;
+  width: 100%;
+}
+.newArticlePage .css-12a83d4-MultiValueRemove {
+  transition: 0.3s ease;
+}
+.newArticlePage .css-1jqq78o-placeholder {
+  color: #fefefe;
+}
+.newArticlePage .css-1nmdiq5-menu {
+  color: #7793b8;
+  border-radius: 0px;
+  overflow: hidden;
+}
+.newArticlePage .css-1nmdiq5-menu > div {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.newArticlePage .css-12a83d4-MultiValueRemove:hover {
+  background-color: #4f617962;
+  color: white;
+}
+
+.newArticlePage .css-t3ipsp-control:hover {
+  border-bottom: 2px solid #7793b862;
+}
+
+.newArticlePage .css-1p3m7a8-multiValue {
+  background-color: #7793b862;
+  color: white;
+}
+.newArticlePage .Topics .css-wsp0cs-MultiValueGeneric {
+  color: white;
+}
+
+.Topics {
+  width: 100%;
+}
+.newArticlePage .Label {
+  font-size: 0.9rem;
 }
