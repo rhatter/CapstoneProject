@@ -5,12 +5,13 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import SingleArticle from "../SigleArticle/SingleArticle";
 import "./MyArticleBody.css";
+import { nanoid } from "nanoid";
 
 const MyArticlesBody = ({ articles }) => {
   const renderSingleArticle = () => {
     return articles.map((article) => <SingleArticle post={article} />);
   };
-  console.log(renderSingleArticle());
+  //console.log(renderSingleArticle());
 
   const toPrompt = articles.map((e) => {
     return {
@@ -31,7 +32,7 @@ const MyArticlesBody = ({ articles }) => {
         <Col xs={12} sm={12} md={10}>
           <div className="ArticleArea">
             {articles.map((e) => (
-              <div>
+              <div key={nanoid()}>
                 <SingleArticle post={e} modify={true} articleID={e._id} />
               </div>
             ))}

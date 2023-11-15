@@ -10,7 +10,7 @@ const useGeoloc = (a) => {
         (position) => {
           const latitude = position.coords.latitude;
           const longitude = position.coords.longitude;
-          console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+          //console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
 
           resolve({ latitude: latitude, longitude: longitude });
         },
@@ -21,15 +21,22 @@ const useGeoloc = (a) => {
       );
     });
   useEffect(() => {
-    try {
-      result().then((resolve) =>
-        setCoord({ latitude: resolve.latitude, longitude: resolve.longitude })
-      );
-    } catch (error) {
-      console.error("Errore durante l'aggiornamento delle coordinate:", error);
-    } finally {
+    if (a) {
+      try {
+        result().then((resolve) =>
+          setCoord({ latitude: resolve.latitude, longitude: resolve.longitude })
+        );
+      } catch (error) {
+        console.error(
+          "Errore durante l'aggiornamento delle coordinate:",
+          error
+        );
+      } finally {
+      }
+    } else {
+      setCoord({ latitude: null, longitude: null });
     }
-  }, []);
+  }, [a]);
 
   return coord;
 

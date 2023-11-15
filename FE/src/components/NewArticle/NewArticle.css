@@ -50,11 +50,12 @@ textarea:focus-within {
   padding: 0.4rem 0.8rem;
 }
 
-.newArticlePage .formArea .time input {
+.newArticlePage .formArea .time input,
+.newArticlePage .route {
   border-radius: 0rem;
   width: 3rem;
   padding: 0.2rem;
-  text-align: center;
+  text-align: left;
 }
 .newArticlePage .inputArea.time,
 .newArticlePage .inputArea.unit {
@@ -75,7 +76,7 @@ textarea:focus-within {
   border-radius: 0rem;
   width: 7rem;
   padding: 0.2rem;
-  text-align: center;
+  text-align: left;
 }
 
 .newArticlePage .formArea .file label {
@@ -114,9 +115,11 @@ textarea:focus-within {
 }
 
 .myArticlePage .box {
-  transition: height 0.9s ease, top 0.9s ease, opacity 0.4s ease 0.5s;
-  top: 0rem;
-  height: 53rem;
+  transition: height 0.9s ease, top 0.9s ease, opacity 0.4s ease 0.5s,
+    margin-top 0.9s ease;
+  margin-top: 0rem;
+  height: auto;
+  /* height: 53rem; */
   padding-bottom: 2rem;
   z-index: 3;
   position: relative;
@@ -124,11 +127,13 @@ textarea:focus-within {
   justify-content: center;
   opacity: 100;
   background-color: #34537b;
+  border-bottom: 2px solid white;
 }
 
 .myArticlePage .box.collaps {
-  top: -55rem;
-  height: 0rem;
+  margin-top: -53rem;
+
+  /* height: 0rem; */
   z-index: -1;
   padding-bottom: 0rem;
   opacity: 0;
@@ -137,7 +142,7 @@ textarea:focus-within {
   width: 100%;
 }
 .inputArea.country {
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 .inputArea.country select {
   border-radius: 0;
@@ -200,4 +205,47 @@ textarea:focus-within {
 }
 .newArticlePage .Label {
   font-size: 0.9rem;
+}
+
+.newArticlePage button.Geoloc {
+  border-radius: 100%;
+  width: 2rem;
+  height: 2rem;
+  margin-top: 0;
+}
+
+.routeArea {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  flex-direction: row;
+  margin-top: 0.5rem;
+}
+
+.newArticlePage .route,
+.newArticlePage .route:focus {
+  width: 60%;
+  height: 2rem;
+}
+.newArticlePage .civico,
+.newArticlePage .civico:focus-within {
+  width: 20%;
+}
+.newArticlePage .Error {
+  font-size: 0.8rem;
+  color: rgb(255, 135, 135);
+}
+
+.newArticlePage .routeArea.centered input {
+  left: 100%;
+}
+
+.newArticlePage .routeArea input {
+  left: 0rem;
+  transition: 1.5s ease;
+  position: relative;
+}
+
+.newArticlePage .routeArea {
+  overflow: hidden;
 }

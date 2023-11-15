@@ -33,7 +33,7 @@ function LoginForm() {
       `${process.env.REACT_APP_URL}/users/login`,
       finalBody
     );
-    console.log(response.data.payload);
+    //console.log(response.data.payload);
     localStorage.setItem(
       "userLocalData",
       JSON.stringify(jwt_decode(response.data.token))

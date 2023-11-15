@@ -25,7 +25,7 @@ function MyArticles() {
         `${process.env.REACT_APP_URL}/post/byAuthor/${userID}`
       );
       setArticle(result.data.payload);
-      console.log(result.data.payload);
+      //console.log(result.data.payload);
     } catch (error) {
       console.log(error);
     }

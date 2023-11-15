@@ -10,9 +10,14 @@ import { Country, State, City } from "country-state-city";
 import Select from "react-select";
 import "./NewArticle.css";
 import useFromTextToCoord from "../../hooks/FromTextToCoord";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import useGeoloc from "../../hooks/Geoloc";
 
 const NewArticle = ({ state }, setRefresh) => {
+  const userData = JSON.parse(localStorage.getItem("userLocalData"));
   const { commenting, setCommenting } = state;
+  const { articleID } = useParams();
   const [thisPost, setThisPost] = useState({});
   const [sendable, setSendable] = useState(false);
   const [formData, setFormData] = useState({});
@@ -20,18 +25,20 @@ const NewArticle = ({ state }, setRefresh) => {
   const [image, setImage] = useState(null);
   const [changedImage, setChangedImage] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
-  const { articleID } = useParams();
-  const userData = JSON.parse(localStorage.getItem("userLocalData"));
   const [country, setCountry] = useState(null);
   const [dataToCoord, setDataToCoord] = useState(null);
+  const [geolocIsSelected, setGeolocIsSelected] = useState(false);
+  const [contruiesState, setCountries] = useState(null);
+  const [indirizzoText, setIndirizzoText] = useState(null);
+  const [indirizzoNumber, setIndirizzoNumber] = useState(null);
+  //use effect per comporre il primo form data da mandare in post
   useEffect(() => {
     setFormData({
       author: userData.id,
     });
+    countryData();
   }, []);
-
-  const coord = useFromTextToCoord(dataToCoord);
-  console.log(coord);
+  //use effect controlla se il form e inviabile
   useEffect(() => {
     if (
       formData.title &&
@@ -39,7 +46,8 @@ const NewArticle = ({ state }, setRefresh) => {
       image &&
       formData.city &&
       formData.country &&
-      formData.topic
+      formData.topic &&
+      coord
     ) {
       setSendable(true);
     } else {
@@ -47,24 +55,60 @@ const NewArticle = ({ state }, setRefresh) => {
     }
   }, [formData, changedImage]);
 
-  //
+  //funzione per chiamare i paesi filtrati per dare le option al select
+  const countryData = () => {
+    const countries = Country.getAllCountries().filter(
+      (e) =>
+        e.currency === "EUR" ||
+        e.currency === "USD" ||
+        e.currency === "HRK" ||
+        e.currency === "GBP"
+    );
+    setCountries(countries);
+  };
+
+  //funzione collegata al click di geoloc ancora da completare
+  const SelectedGeoloc = () => {
+    setGeolocIsSelected((r) => (r === true ? false : true));
+  };
+
+  const fromGeoloc = useGeoloc(geolocIsSelected);
+  //console.log(fromGeoloc);
+  //dati coordinata da mandare a nominatin per avere le coordinate
+  //cllegato ad uno stato per lanciarlo quando quello stato cambia
+  const coord = useFromTextToCoord(dataToCoord);
+  //console.log(coord);
+  const coordError = () => {
+    if (coord && !coord[0] && !geolocIsSelected) {
+      return (
+        <span className="Error">
+          Inserisci un indirizzo corretto o premi il pulsante di
+          Geolocalizzazione
+        </span>
+      );
+    }
+  };
+
+  //topics option, da chiamare lato server ma non ora
   const topicsOptions = [
-    { value: "topic1", label: "Topic 1" },
-    { value: "topic2", label: "Topic 2" },
-    { value: "topic3", label: "Topic 3" },
+    { value: "sport", label: "Sport" },
+    { value: "food", label: "Cucina" },
+    { value: "museo", label: "Musei" },
+    { value: "storia", label: "Storico" },
+    { value: "art", label: "Artistico" },
   ];
 
+  //funzione che aggiunge al form data i topic selezionati
   const handleChange = (selectedOption) => {
     setSelectedOption(selectedOption);
     setFormData({
       ...formData,
       topic: selectedOption.map((e) => e.value),
     });
-    console.log(formData);
+    //console.log(formData);
   };
 
-  //
-
+  //funzione per il lancio dell'upload su cloudinary dell'immagine
   const uploadFile = async (cover) => {
     const fileData = new FormData();
     fileData.append("cover", cover);
@@ -80,6 +124,7 @@ const NewArticle = ({ state }, setRefresh) => {
     }
   };
 
+  //funzione per renderizzare gli errori alle chiamate server
   const renderRegisterError = () => {
     return (
       <div>
@@ -93,6 +138,16 @@ const NewArticle = ({ state }, setRefresh) => {
     if (!sendable) {
       return;
     }
+    let address = "";
+    let actualCoord = { lat: null, lon: null };
+    if (coord && !coord[0]) {
+      address = indirizzoText + indirizzoNumber;
+      actualCoord = { lat: coord[0].lat, lon: coord[0].lon };
+    } else if (fromGeoloc) {
+      address = "";
+      actualCoord = { lat: fromGeoloc.latitude, lon: fromGeoloc.longitude } =
+        fromGeoloc;
+    }
     let finalBody = { ...formData };
     try {
       if (image) {
@@ -100,7 +155,8 @@ const NewArticle = ({ state }, setRefresh) => {
         finalBody = {
           ...finalBody,
           cover: uploadCover.data.cover,
-          coord: { lat: coord[0].lat, lon: coord[0].lon },
+          coord: actualCoord,
+          address: address,
         };
       }
       const response = await axios.post(
@@ -108,10 +164,10 @@ const NewArticle = ({ state }, setRefresh) => {
         finalBody
       );
       setCommenting(false);
-      //window.location.reload(false);
+      window.location.reload(false);
     } catch (error) {
       setRegisterError(error.response);
-      console.log(error.response);
+      //console.log(error.response);
     }
   };
   const onChangeImage = (e) => {
@@ -134,17 +190,6 @@ const NewArticle = ({ state }, setRefresh) => {
     console.log(formData);
   };
 
-  const countryData = () => {
-    const countries = Country.getAllCountries().filter(
-      (e) =>
-        e.currency === "EUR" ||
-        e.currency === "USD" ||
-        e.currency === "HRK" ||
-        e.currency === "GBP"
-    );
-    //console.log(countries);
-    return countries;
-  };
   const cityData = () => {
     const cities = City.getCitiesOfCountry(
       Country.getAllCountries().filter((e) => e.name === country)[0].isoCode
@@ -198,35 +243,27 @@ const NewArticle = ({ state }, setRefresh) => {
                   <span className="Label">Dove sei stato?</span>
                   <div className="inputArea country">
                     <select
-                      list="country"
+                      value={formData.country}
                       type="text"
                       placeholder="Paese"
                       name="country"
                       onChange={(e) => {
-                        setThisPost({
-                          ...thisPost,
-                          country: e.target.value,
-                        });
                         formDataImport(e);
                         setCountry(e.target.value);
                       }}
                     >
-                      {countryData().map((country) => (
-                        <option key={nanoid()}>{country.name}</option>
-                      ))}
+                      {contruiesState &&
+                        contruiesState.map((country) => (
+                          <option key={nanoid()}>{country.name}</option>
+                        ))}
                     </select>
-
                     <select
+                      value={formData.city}
                       id="countryInput"
-                      list="country"
                       type="text"
                       placeholder="Paese"
                       name="city"
                       onChange={(e) => {
-                        setThisPost({
-                          ...thisPost,
-                          country: e.target.value,
-                        });
                         formDataImport(e);
                         setDataToCoord(`${country}, ${e.target.value}`);
                       }}
@@ -237,6 +274,47 @@ const NewArticle = ({ state }, setRefresh) => {
                         ))}
                     </select>
                   </div>
+                  <div
+                    className={`routeArea ${
+                      geolocIsSelected ? "centered" : ""
+                    }`}
+                  >
+                    <button
+                      variant="primary"
+                      onClick={SelectedGeoloc}
+                      className="Geoloc"
+                    >
+                      <FontAwesomeIcon icon={faLocationDot} />
+                    </button>
+
+                    {
+                      <>
+                        <input
+                          type="text"
+                          className="route"
+                          placeholder="Scegli la via"
+                          onBlur={(e) => {
+                            setDataToCoord(
+                              `${country}, ${formData.city} , ${e.target.value}`
+                            );
+                            setIndirizzoText(e.target.value);
+                          }}
+                        />
+                        <input
+                          type="number"
+                          className="civico"
+                          placeholder="Civico"
+                          onBlur={(e) => {
+                            setDataToCoord(
+                              `${country}, ${formData.city} , ${indirizzoText} ${e.target.value}`
+                            );
+                            setIndirizzoNumber(e.target.value);
+                          }}
+                        />
+                      </>
+                    }
+                  </div>
+                  {coordError()}
                   <span className="Label">Scegli la categoria giusta</span>
                   <div className="Topics">
                     <Select
