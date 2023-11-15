@@ -6,6 +6,7 @@ import { Col } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useNavigate, Link } from "react-router-dom";
 import jwt_decode from "jwt-decode";
+import ModifyArticles from "../components/ModifyArticles/ModifyArticles";
 
 const ModifyArticle = () => {
   const [thisPost, setThisPost] = useState({});
@@ -116,103 +117,112 @@ const ModifyArticle = () => {
   return (
     <>
       <MyNavBar />
-      <Col xs={12}>
-        <div className="modifyArticlePage">
-          <div className="commentArea">
-            <div className="formArea">
-              <form action="" encType="multipart/form-data" onSubmit={postUser}>
-                <div className="titleArea">
-                  <span>Racconta la tua storia</span>
-                </div>
-                <div className="inputArea title">
-                  <textarea
-                    type="text"
-                    placeholder=""
-                    name="title"
-                    onChange={(e) => {
-                      setThisPost({ ...thisPost, title: e.target.value });
-                      formDataImport(e);
-                    }}
-                    value={thisPost.title}
-                  >
-                    {thisPost.title}
-                  </textarea>
-                </div>
-                <div className="inputArea content">
-                  <textarea
-                    type="text"
-                    placeholder="content"
-                    name="content"
-                    onChange={(e) => {
-                      setThisPost({ ...thisPost, content: e.target.value });
-                      formDataImport(e);
-                    }}
-                    value={thisPost.content}
-                  ></textarea>
-                </div>
-                <div className="timeArea">
-                  <div className="inputArea time">
-                    <input
-                      type="number"
-                      name="value"
-                      onChange={(e) => {
-                        setThisPost({
-                          ...thisPost,
-                          readTime: {
-                            ...thisPost.readtime,
-                            value: e.target.value,
-                          },
-                        });
-                        formDataImport(e);
-                      }}
-                      placeholder={thisPost.readTime && thisPost.readTime.value}
-                    ></input>
-                  </div>
-                  <div className="inputArea unit">
-                    <input
-                      type="text"
-                      placeholder="reading time"
-                      name="unit"
-                      onChange={(e) => {
-                        setThisPost({
-                          ...thisPost,
-                          readTime: {
-                            ...thisPost.readtime,
-                            unit: e.target.value,
-                          },
-                        });
-                        formDataImport(e);
-                      }}
-                      value={thisPost.readTime && thisPost.readTime.unit}
-                    ></input>
-                  </div>
-                </div>
-
-                <div className="inputArea file">
-                  <label class="custom-file-upload">
-                    <input
-                      type="file"
-                      placeholder="Immagine profilo"
-                      name="cover"
-                      onChange={(e) => {
-                        onChangeImage(e);
-                        setChangedImage(true);
-                      }}
-                    />
-                    Immagine
-                  </label>
-                </div>
-                {registerError && renderRegisterError()}
-                <button
-                  type="submit"
-                  className={sendable ? "sendable" : "unsendable"}
+      <Col xs={12} className="modifyArticlePage">
+        {1 === 0 && (
+          <div className="modifyArticlePage">
+            <div className="commentArea">
+              <div className="formArea">
+                <form
+                  action=""
+                  encType="multipart/form-data"
+                  onSubmit={postUser}
                 >
-                  Aggiorna
-                </button>
-              </form>
+                  <div className="titleArea">
+                    <span>Racconta la tua storia</span>
+                  </div>
+                  <div className="inputArea title">
+                    <textarea
+                      type="text"
+                      placeholder=""
+                      name="title"
+                      onChange={(e) => {
+                        setThisPost({ ...thisPost, title: e.target.value });
+                        formDataImport(e);
+                      }}
+                      value={thisPost.title}
+                    >
+                      {thisPost.title}
+                    </textarea>
+                  </div>
+                  <div className="inputArea content">
+                    <textarea
+                      type="text"
+                      placeholder="content"
+                      name="content"
+                      onChange={(e) => {
+                        setThisPost({ ...thisPost, content: e.target.value });
+                        formDataImport(e);
+                      }}
+                      value={thisPost.content}
+                    ></textarea>
+                  </div>
+                  <div className="timeArea">
+                    <div className="inputArea time">
+                      <input
+                        type="number"
+                        name="value"
+                        onChange={(e) => {
+                          setThisPost({
+                            ...thisPost,
+                            readTime: {
+                              ...thisPost.readtime,
+                              value: e.target.value,
+                            },
+                          });
+                          formDataImport(e);
+                        }}
+                        placeholder={
+                          thisPost.readTime && thisPost.readTime.value
+                        }
+                      ></input>
+                    </div>
+                    <div className="inputArea unit">
+                      <input
+                        type="text"
+                        placeholder="reading time"
+                        name="unit"
+                        onChange={(e) => {
+                          setThisPost({
+                            ...thisPost,
+                            readTime: {
+                              ...thisPost.readtime,
+                              unit: e.target.value,
+                            },
+                          });
+                          formDataImport(e);
+                        }}
+                        value={thisPost.readTime && thisPost.readTime.unit}
+                      ></input>
+                    </div>
+                  </div>
+
+                  <div className="inputArea file">
+                    <label class="custom-file-upload">
+                      <input
+                        type="file"
+                        placeholder="Immagine profilo"
+                        name="cover"
+                        onChange={(e) => {
+                          onChangeImage(e);
+                          setChangedImage(true);
+                        }}
+                      />
+                      Immagine
+                    </label>
+                  </div>
+                  {registerError && renderRegisterError()}
+                  <button
+                    type="submit"
+                    className={sendable ? "sendable" : "unsendable"}
+                  >
+                    Aggiorna
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
-        </div>
+        )}
+        <ModifyArticles></ModifyArticles>
       </Col>
     </>
   );

@@ -104,8 +104,8 @@ user.post("/users/login", async (req, res) => {
       }
     });
   } catch (error) {
-    res.status(200).send({
-      statusCode: 200,
+    res.status(400).send({
+      statusCode: 400,
       payload: false,
     });
   }

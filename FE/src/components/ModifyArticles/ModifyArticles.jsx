@@ -8,15 +8,15 @@ import { useNavigate, Link } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { Country, State, City } from "country-state-city";
 import Select from "react-select";
-import "./NewArticle.css";
+//import "./NewArticle.css";
 import useFromTextToCoord from "../../hooks/FromTextToCoord";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useGeoloc from "../../hooks/Geoloc";
+import "./ModifyArticles.css";
 
-const NewArticle = ({ state }, setRefresh) => {
+const ModifyArticles = () => {
   const userData = JSON.parse(localStorage.getItem("userLocalData"));
-  const { commenting, setCommenting } = state;
   const { articleID } = useParams();
   const [thisPost, setThisPost] = useState({});
   const [sendable, setSendable] = useState(false);
@@ -184,7 +184,7 @@ const NewArticle = ({ state }, setRefresh) => {
         `${process.env.REACT_APP_URL}/posts/create`,
         finalBody
       );
-      setCommenting(false);
+      //setCommenting(false);
       window.location.reload(false);
     } catch (error) {
       setRegisterError(error.response);
@@ -214,8 +214,8 @@ const NewArticle = ({ state }, setRefresh) => {
   //devo chiamare il singolo post
   return (
     <>
-      <div className={commenting ? "box visibl" : "box collaps"}>
-        <Col xs={12} md={9} lg={6} xl={5}>
+      <div className={"box visibl"}>
+        <Col xs={12} md={9} lg={6}>
           <div className="newArticlePage">
             <div className="commentArea">
               <div className="formArea">
@@ -388,4 +388,4 @@ const NewArticle = ({ state }, setRefresh) => {
   );
 };
 
-export default NewArticle;
+export default ModifyArticles;

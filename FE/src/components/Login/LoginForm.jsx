@@ -29,24 +29,31 @@ function LoginForm() {
     const finalBody = {
       ...formData,
     };
-    const response = await axios.post(
-      `${process.env.REACT_APP_URL}/users/login`,
-      finalBody
-    );
-    //console.log(response.data.payload);
-    localStorage.setItem(
-      "userLocalData",
-      JSON.stringify(jwt_decode(response.data.token))
-    );
-    localStorage.setItem("token", JSON.stringify(response.data.token));
-    if (response.data.payload) {
-      setUtenteErrato(false);
-      navigate("/");
-    } else {
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_URL}/users/login`,
+        finalBody
+      );
+      //console.log(response.data.payload);
+      if (response.data.token) {
+        localStorage.setItem(
+          "userLocalData",
+          JSON.stringify(jwt_decode(response.data.token))
+        );
+        localStorage.setItem("token", JSON.stringify(response.data.token));
+      }
+      if (response.data.payload) {
+        setUtenteErrato(false);
+        navigate("/");
+      } else {
+      }
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
       setLogTried(true);
       setUtenteErrato(true);
     }
-    return response;
   };
 
   const renderErrorPW = () => {

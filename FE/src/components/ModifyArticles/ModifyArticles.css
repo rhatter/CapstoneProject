@@ -1,0 +1,14 @@
+.modifyArticlePage .box {
+  display: flex;
+  justify-content: center;
+  margin-top: 0;
+  height: auto;
+  width: 100%;
+}
+.modifyArticlePage {
+  position: relative;
+  width: 100%;
+}
+.commentArea {
+  width: 100%;
+}

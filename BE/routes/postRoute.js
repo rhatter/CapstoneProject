@@ -224,6 +224,10 @@ posts.post("/posts/create", validatePost, async (req, res) => {
     author: req.body.author,
     content: req.body.content,
     coord: { lat: req.body.coord.lat, lon: req.body.coord.lon },
+    address: {
+      addressName: req.body.address.addressName,
+      addressNumber: req.body.address.addressNumber,
+    },
   });
 
   try {

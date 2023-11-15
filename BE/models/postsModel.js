@@ -41,7 +41,12 @@ const PostsSchema = new mongoose.Schema(
       lat: { type: String, required: true },
       lon: { type: String, required: true },
     },
-    address: { type: String, required: false },
+    address: {
+      type: Object,
+      required: false,
+      addressName: { type: String, required: false },
+      addressNumber: { type: Number, required: false },
+    },
   },
   { timestamps: true, strict: true }
 );
