@@ -11,6 +11,8 @@
 
 .campiForm input,
 .campiForm input:focus-within,
+.campiForm select,
+.campiForm select:focus-within,
 .InputArea .css-13cymwt-control,
 .InputArea .css-t3ipsp-control {
   border-top: none;
@@ -102,7 +104,7 @@
 .InputArea .Paese,
 .InputArea .Citta {
   padding: 0 1rem;
-  width: 50%;
+  width: 30%;
 }
 
 .InputArea .css-13cymwt-control {

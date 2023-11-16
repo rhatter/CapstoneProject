@@ -47,6 +47,10 @@ const PostsSchema = new mongoose.Schema(
       addressName: { type: String, required: false },
       addressNumber: { type: Number, required: false },
     },
+    region: {
+      type: String,
+      required: false,
+    },
   },
   { timestamps: true, strict: true }
 );

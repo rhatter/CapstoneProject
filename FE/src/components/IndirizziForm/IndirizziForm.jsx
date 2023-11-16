@@ -15,14 +15,58 @@ import {
 import { Col } from "react-bootstrap";
 import { Formik, Form as FormikForm, Field, ErrorMessage } from "formik";
 import Select from "react-select";
+import { Country, State, City } from "country-state-city";
+import { nanoid } from "nanoid";
+import useFromTextToCoord from "../../hooks/FromTextToCoord";
 
 const IndirizziForm = () => {
   const [selectedOption, setSelectedOption] = useState(null);
-  const [paese, setPaese] = useState(null);
-  const [citta, setCitta] = useState(null);
+  const [country, setCountry] = useState(null);
+  const [city, setCity] = useState(null);
+  const [region, setRegion] = useState(null);
+  const [formData, setFormData] = useState({});
+  const [dataToCoord, setDataToCoord] = useState(null);
+
+  const formDataImport = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const coord = useFromTextToCoord(dataToCoord);
+
+  const countryData = () => {
+    const countries = Country.getAllCountries().filter(
+      (e) =>
+        e.currency === "EUR" ||
+        e.currency === "USD" ||
+        e.currency === "HRK" ||
+        e.currency === "GBP"
+    );
+    return countries;
+  };
+  const cityData = () => {
+    const cities = City.getCitiesOfState(
+      Country.getAllCountries().filter((e) => e.name === formData.country)[0]
+        .isoCode,
+      State.getStatesOfCountry(
+        Country.getAllCountries().filter((e) => e.name === formData.country)[0]
+          .isoCode
+      ).filter((st) => st.name === formData.region)[0].isoCode
+    );
+    return cities;
+  };
+
+  const regionData = () => {
+    const regions = State.getStatesOfCountry(
+      Country.getAllCountries().filter((e) => e.name === formData.country)[0]
+        .isoCode
+    );
+    //console.log(regions);
+    return regions;
+  };
 
   const dispatch = useDispatch();
-  const coordthis = useGeoloc();
+  const coordthis = useGeoloc(true);
   const Selected = async () => {
     dispatch(CoordUpdate(coordthis));
   };
@@ -40,25 +84,16 @@ const IndirizziForm = () => {
   const searchLocations = (e) => {
     e.preventDefault();
     dispatch(
-      getArticles({ topics: selectedOption, paese: paese, citta: citta })
+      getArticles({
+        topics: selectedOption,
+        paese: formData.country,
+        citta: formData.city,
+      })
     );
     console.log("clicked");
   };
 
   const dataToGet = () => {};
-
-  const updateState = (e) => {
-    switch (e.target.name) {
-      case "paese":
-        setPaese(e.target.value);
-        break;
-      case "citta":
-        setCitta(e.target.value);
-        break;
-      default:
-        break;
-    }
-  };
 
   return (
     <Col sm={12} className="FormSpace">
@@ -70,20 +105,58 @@ const IndirizziForm = () => {
             </Button>
             <div className="InputArea">
               <div className="Paese">
-                <input
+                <select
+                  value={formData.country}
                   type="text"
-                  placeholder="Scegli il Paese"
-                  name="paese"
-                  onChange={(e) => updateState(e)}
-                />
+                  placeholder="Paese"
+                  name="country"
+                  onChange={(e) => {
+                    formDataImport(e);
+                    setCountry(e.target.value);
+                    setDataToCoord(`${e.target.value}`);
+                  }}
+                >
+                  {countryData() &&
+                    countryData().map((country) => (
+                      <option key={nanoid()}>{country.name}</option>
+                    ))}
+                </select>
               </div>
-              <div className="Citta">
-                <input
+              <div className="Paese">
+                <select
+                  value={formData.region}
+                  id="countryInput"
                   type="text"
-                  placeholder="Scegli la Città"
-                  name="citta"
-                  onChange={(e) => updateState(e)}
-                />
+                  placeholder="Regione"
+                  name="region"
+                  onChange={(e) => {
+                    formDataImport(e);
+                    setDataToCoord(`${country}, ${e.target.value}`);
+                  }}
+                >
+                  {formData.country &&
+                    regionData().map((country) => (
+                      <option key={nanoid()}>{country.name}</option>
+                    ))}
+                </select>
+              </div>
+              <div className="Paese">
+                <select
+                  value={formData.city}
+                  id="countryInput"
+                  type="text"
+                  placeholder="Paese"
+                  name="city"
+                  onChange={(e) => {
+                    formDataImport(e);
+                    setDataToCoord(`${country}, ${e.target.value}`);
+                  }}
+                >
+                  {formData.region &&
+                    cityData().map((country) => (
+                      <option key={nanoid()}>{country.name}</option>
+                    ))}
+                </select>
               </div>
               <div className="Topics">
                 <Select

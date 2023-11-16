@@ -219,6 +219,7 @@ posts.post("/posts/create", validatePost, async (req, res) => {
     title: req.body.title,
     topic: req.body.topic,
     cover: req.body.cover,
+    region: req.body.region,
     country: req.body.country,
     city: req.body.city,
     author: req.body.author,

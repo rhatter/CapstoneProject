@@ -40,20 +40,22 @@ const ModifyArticles = () => {
   }, []);
   //use effect controlla se il form e inviabile
   useEffect(() => {
+    console.log(formData);
     if (
       formData.title &&
       formData.content &&
-      image &&
       formData.city &&
       formData.country &&
       formData.topic &&
-      coord
+      formData.coord
     ) {
       setSendable(true);
     } else {
       setSendable(false);
     }
   }, [formData, changedImage]);
+  //creo il navigator
+  const navigate = useNavigate();
 
   //funzione per chiamare i paesi filtrati per dare le option al select
   const countryData = () => {
@@ -68,7 +70,8 @@ const ModifyArticles = () => {
   };
   const cityData = () => {
     const cities = City.getCitiesOfState(
-      Country.getAllCountries().filter((e) => e.name === country)[0].isoCode,
+      Country.getAllCountries().filter((e) => e.name === formData.country)[0]
+        .isoCode,
       State.getStatesOfCountry(
         Country.getAllCountries().filter((e) => e.name === formData.country)[0]
           .isoCode
@@ -87,11 +90,30 @@ const ModifyArticles = () => {
   };
 
   //funzione collegata al click di geoloc ancora da completare
-  const SelectedGeoloc = () => {
+  const SelectedGeoloc = (e) => {
+    e.preventDefault();
     setGeolocIsSelected((r) => (r === true ? false : true));
   };
 
+  useEffect(() => {
+    setFormData((prev) => {
+      return {
+        ...prev,
+        coord: { lat: fromGeoloc.latitude, lon: fromGeoloc.longitude },
+      };
+    });
+  }, []);
+
   const fromGeoloc = useGeoloc(geolocIsSelected);
+  const Dammi = (params) => {
+    setFormData((prev) => {
+      return {
+        ...prev,
+        coord: { lat: fromGeoloc.latitude, lon: fromGeoloc.longitude },
+      };
+    });
+  };
+
   //console.log(fromGeoloc);
   //dati coordinata da mandare a nominatin per avere le coordinate
   //collegato ad uno stato per lanciarlo quando quello stato cambia
@@ -112,7 +134,7 @@ const ModifyArticles = () => {
   const topicsOptions = [
     { value: "sport", label: "Sport" },
     { value: "food", label: "Cucina" },
-    { value: "museo", label: "Musei" },
+    { value: "museo", label: "museo" },
     { value: "storia", label: "Storico" },
     { value: "art", label: "Artistico" },
   ];
@@ -175,20 +197,18 @@ const ModifyArticles = () => {
         finalBody = {
           ...finalBody,
           cover: uploadCover.data.cover,
-          coord: actualCoord,
-          address: address,
         };
         console.log(finalBody);
       }
-      const response = await axios.post(
-        `${process.env.REACT_APP_URL}/posts/create`,
+
+      const response = await axios.patch(
+        `${process.env.REACT_APP_URL}/posts/update/${thisPost._id}`,
         finalBody
       );
-      //setCommenting(false);
-      window.location.reload(false);
+      navigate(`/myarticle/${userData.id}`);
     } catch (error) {
       setRegisterError(error.response);
-      //console.log(error.response);
+      console.log(error.response);
     }
   };
   const onChangeImage = (e) => {
@@ -199,7 +219,25 @@ const ModifyArticles = () => {
     const post = await axios.get(
       `${process.env.REACT_APP_URL}/posts/byid/${articleID}`
     );
+    console.log(post);
     setThisPost(post.data.post);
+    setFormData((prev) => {
+      return {
+        ...prev,
+        address: {
+          addressName: post.data.post.address.addressName,
+          addressNumber: post.data.post.address.addressNumber,
+        },
+        city: post.data.post.city,
+        country: post.data.post.country,
+        coord: post.data.post.coord,
+        region: post.data.post.region,
+        topic: post.data.post.topic,
+        cover: post.data.post.cover,
+        title: post.data.post.title,
+        content: post.data.post.content,
+      };
+    });
   }
   useEffect(() => {
     getBooks();
@@ -208,7 +246,6 @@ const ModifyArticles = () => {
   const formDataImport = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    console.log(formData);
   };
 
   //devo chiamare il singolo post
@@ -236,7 +273,7 @@ const ModifyArticles = () => {
                         setThisPost({ ...thisPost, title: e.target.value });
                         formDataImport(e);
                       }}
-                      value={thisPost.title ? thisPost.title : ""}
+                      value={formData.title ? formData.title : ""}
                     >
                       {thisPost.title}
                     </textarea>
@@ -250,7 +287,7 @@ const ModifyArticles = () => {
                         setThisPost({ ...thisPost, content: e.target.value });
                         formDataImport(e);
                       }}
-                      value={thisPost.content ? thisPost.content : ""}
+                      value={formData.content ? formData.content : ""}
                     ></textarea>
                   </div>
                   <span className="Label">Dove sei stato?</span>
@@ -312,6 +349,7 @@ const ModifyArticles = () => {
                       variant="primary"
                       onClick={SelectedGeoloc}
                       className="Geoloc"
+                      onBlur={Dammi}
                     >
                       <FontAwesomeIcon icon={faLocationDot} />
                     </button>
@@ -319,24 +357,75 @@ const ModifyArticles = () => {
                     {
                       <>
                         <input
+                          value={
+                            formData.address && formData.address.addressName
+                          }
                           type="text"
                           className="route"
                           placeholder="Scegli la via"
-                          onBlur={(e) => {
+                          onChange={(e) => {
+                            setFormData((prev) => {
+                              return {
+                                ...prev,
+                                address: {
+                                  ...prev.address,
+                                  addressName: e.target.value,
+                                },
+                              };
+                            });
                             setDataToCoord(
-                              `${country}, ${formData.city} , ${e.target.value}`
+                              `${formData.country}, ${formData.city} , ${e.target.value}`
                             );
+                          }}
+                          onBlur={(e) => {
+                            console.log(coord[0]);
+                            if (coord[0]) {
+                              setFormData((prev) => {
+                                return {
+                                  ...prev,
+                                  coord: {
+                                    lat: coord[0].lat,
+                                    lon: coord[0].lon,
+                                  },
+                                };
+                              });
+                            }
                             setIndirizzoText(e.target.value);
                           }}
                         />
                         <input
+                          value={
+                            formData.address && formData.address.addressNumber
+                          }
+                          onChange={(e) => {
+                            setFormData((prev) => {
+                              return {
+                                ...prev,
+                                address: {
+                                  ...prev.address,
+                                  addressNumber: e.target.value,
+                                },
+                              };
+                            });
+                            setDataToCoord(
+                              `${formData.country}, ${formData.city} , ${indirizzoText} ${e.target.value}`
+                            );
+                          }}
                           type="number"
                           className="civico"
                           placeholder="Civico"
                           onBlur={(e) => {
-                            setDataToCoord(
-                              `${country}, ${formData.city} , ${indirizzoText} ${e.target.value}`
-                            );
+                            if (coord[0]) {
+                              setFormData((prev) => {
+                                return {
+                                  ...prev,
+                                  coord: {
+                                    lat: coord[0].lat,
+                                    lon: coord[0].lon,
+                                  },
+                                };
+                              });
+                            }
                             setIndirizzoNumber(e.target.value);
                           }}
                         />
@@ -346,13 +435,18 @@ const ModifyArticles = () => {
                   {coordError()}
                   <span className="Label">Scegli la categoria giusta</span>
                   <div className="Topics">
-                    <Select
-                      className=""
-                      isMulti
-                      options={topicsOptions}
-                      placeholder="Tipo di attività..."
-                      onChange={handleChange}
-                    />
+                    {formData.topic && (
+                      <Select
+                        className=""
+                        isMulti
+                        options={topicsOptions}
+                        placeholder="Tipo di attività..."
+                        onChange={handleChange}
+                        defaultValue={formData.topic.map((e) => {
+                          return { label: e, value: e };
+                        })}
+                      />
+                    )}
                   </div>
                   <div className="timeArea">
                     <div className="inputArea file">
