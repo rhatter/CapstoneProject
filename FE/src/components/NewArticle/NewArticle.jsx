@@ -31,6 +31,7 @@ const NewArticle = ({ state }, setRefresh) => {
   const [contruiesState, setCountries] = useState(null);
   const [indirizzoText, setIndirizzoText] = useState(null);
   const [indirizzoNumber, setIndirizzoNumber] = useState(null);
+  const [coordTryGeo, setCoordTryGeo] = useState(null);
   //use effect per comporre il primo form data da mandare in post
   useEffect(() => {
     setFormData({
@@ -93,6 +94,10 @@ const NewArticle = ({ state }, setRefresh) => {
 
   const fromGeoloc = useGeoloc(geolocIsSelected);
   //console.log(fromGeoloc);
+  useEffect(() => {
+    setCoordTryGeo(fromGeoloc);
+  }, [fromGeoloc]);
+
   //dati coordinata da mandare a nominatin per avere le coordinate
   //collegato ad uno stato per lanciarlo quando quello stato cambia
   const coord = useFromTextToCoord(dataToCoord);
@@ -131,7 +136,7 @@ const NewArticle = ({ state }, setRefresh) => {
   const uploadFile = async (cover) => {
     const fileData = new FormData();
     fileData.append("cover", cover);
-    console.log(cover);
+    //console.log(cover);
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_URL}/posts/cloudUpload`,
@@ -139,7 +144,7 @@ const NewArticle = ({ state }, setRefresh) => {
       );
       return response;
     } catch (error) {
-      console.log(error, "errore in upload file");
+      //console.log(error, "errore in upload file");
     }
   };
 
@@ -159,14 +164,12 @@ const NewArticle = ({ state }, setRefresh) => {
     }
     let address = "";
     let actualCoord = { lat: null, lon: null };
-    if (coord && coord[0]) {
-      console.log(coord);
+    if (coordTryGeo.latitude) {
+      address = { addressName: null, addressNumber: null };
+      actualCoord = { lat: fromGeoloc.latitude, lon: fromGeoloc.longitude };
+    } else if (coord && coord[0]) {
       address = { addressName: indirizzoText, addressNumber: indirizzoNumber };
       actualCoord = { lat: coord[0].lat, lon: coord[0].lon };
-    } else if (fromGeoloc) {
-      address = { addressName: null, addressNumber: null };
-      actualCoord = { lat: fromGeoloc.latitude, lon: fromGeoloc.longitude } =
-        fromGeoloc;
     }
     let finalBody = { ...formData };
     try {
@@ -178,16 +181,16 @@ const NewArticle = ({ state }, setRefresh) => {
           coord: actualCoord,
           address: address,
         };
-        console.log(finalBody);
+        //console.log(finalBody);
       }
       const response = await axios.post(
         `${process.env.REACT_APP_URL}/posts/create`,
         finalBody
       );
       setCommenting(false);
-      window.location.reload(false);
+      //window.location.reload(false);
     } catch (error) {
-      setRegisterError(error.response);
+      //setRegisterError(error.response);
       //console.log(error.response);
     }
   };
@@ -370,8 +373,6 @@ const NewArticle = ({ state }, setRefresh) => {
                       </label>
                     </div>
                   </div>
-
-                  {registerError && renderRegisterError()}
                   <button
                     type="submit"
                     className={sendable ? "sendable" : "unsendable"}

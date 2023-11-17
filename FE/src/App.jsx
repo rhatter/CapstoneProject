@@ -12,6 +12,7 @@ import MydataPage from "./pages/MydataPage";
 import MyArticles from "./pages/MyArticles";
 import ModifyArticle from "./pages/ModifyArticle";
 import { nanoid } from "nanoid";
+import "react-slideshow-image/dist/styles.css";
 
 function App() {
   return (

@@ -26,7 +26,7 @@ const IndirizziForm = () => {
   const [formData, setFormData] = useState({
     country: "Italy",
     region: "Piedmont",
-    city: "Turin",
+    city: "Torino",
   });
   const [dataToCoord, setDataToCoord] = useState(
     `${formData.country},${formData.region}, ${formData.city}`
@@ -103,9 +103,9 @@ const IndirizziForm = () => {
     dispatch(
       getArticles({
         topics: selectedOption,
-        paese: formData.country,
-        citta: formData.city,
-        regione: formData.region,
+        country: formData.country,
+        city: formData.city,
+        region: formData.region,
       })
     );
     if (coord) {
@@ -146,7 +146,7 @@ const IndirizziForm = () => {
                     setCountry(e.target.value);
                     setDataToCoord(`${e.target.value}`);
                     setFormData((prev) => {
-                      return { ...prev, region: null };
+                      return { ...prev, region: null, city: null };
                     });
                   }}
                 >

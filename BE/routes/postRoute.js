@@ -325,4 +325,30 @@ posts.get("/post/byAuthor/:authorID", async (req, res) => {
   }
 });
 
+posts.post("/post/byLocation", async (req, res) => {
+  const data = {
+    country: req.body.country,
+    region: req.body.region,
+    city: req.body.city,
+  };
+  console.log(req.body);
+  try {
+    const posts = await PostModel.find({
+      country: data.country,
+      region: data.region,
+      city: data.city,
+    });
+    res.status(200).send({
+      statusCode: 200,
+      message: `Post trovati`,
+      payload: posts,
+    });
+  } catch (error) {
+    res.status(400).send({
+      statusCode: 400,
+      message: `Non hai ancora nessun post`,
+    });
+  }
+});
+
 module.exports = posts;

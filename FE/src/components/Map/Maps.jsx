@@ -20,6 +20,10 @@ L.Marker.prototype.options.icon = DefaultIcon;
 
 const Maps = () => {
   const coord = useSelector((select) => select);
+  const selector = useSelector((select) => select);
+  const articles = selector.FilteredArticles.data;
+  console.log(articles);
+
   const [mappaRenderizzata, setMappaRenderizzata] = useState(null);
 
   const Recenter = ({ lat, lng }) => {
@@ -54,6 +58,14 @@ const Maps = () => {
           <Marker position={[e.value.latitude, e.value.longitude]}>
             <Popup>Torino</Popup>
           </Marker>
+          {articles &&
+            articles.map((location) => {
+              return (
+                <Marker position={[location.coord.lat, location.coord.lon]}>
+                  <Popup>{location.title}</Popup>
+                </Marker>
+              );
+            })}
         </MapContainer>
       </div>
     );

@@ -1,0 +1,41 @@
+.react-slideshow-container .nav {
+  height: 100%;
+  border-radius: 0;
+  width: 20%;
+}
+.react-slideshow-container .nav {
+  background: linear-gradient(270deg, #c6dfff00 0%, rgba(0, 0, 0, 0) 100%);
+  transition: all 0.5s ease;
+  opacity: 0;
+}
+
+.react-slideshow-container .nav:hover:last-child:hover {
+  background: linear-gradient(270deg, #c6dfff36 0%, rgba(0, 0, 0, 0) 100%);
+  background-blend-mode: hard-light;
+  opacity: 100;
+}
+
+.react-slideshow-container .nav:hover:first-child {
+  background: linear-gradient(90deg, #c6dfff36 0%, rgba(0, 0, 0, 0) 100%);
+  background-blend-mode: hard-light;
+  opacity: 100;
+}
+
+.react-slideshow-container .nav:focus {
+  background: rgba(240, 248, 255, 0);
+}
+
+.react-slideshow-container .nav:first-child svg {
+  position: absolute;
+  left: 2rem;
+  transform: scale(0.8);
+}
+.react-slideshow-container .nav:last-child svg {
+  position: absolute;
+  right: 2rem;
+  transform: scale(0.8);
+}
+
+.react-slideshow-container path {
+  fill: white;
+}
