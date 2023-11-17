@@ -99,11 +99,13 @@
   display: flex;
   width: 100%;
   flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 1rem;
 }
 
 .InputArea .Paese,
 .InputArea .Citta {
-  padding: 0 1rem;
+  padding: 0 0;
   width: 30%;
 }
 
@@ -123,7 +125,7 @@
 }
 .InputArea .Topics {
   width: 100%;
-  padding: 0rem 0.5rem;
+  padding: 0rem 0rem;
 }
 
 .FormSpace {
@@ -137,4 +139,19 @@
 }
 .InputArea .Topics .css-wsp0cs-MultiValueGeneric {
   color: white;
+}
+
+.errorSearch {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding-top: 0.6rem;
+}
+.errorSearch .Error {
+  color: rgb(255, 148, 148);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+select:not([size]) {
+  background: none;
 }

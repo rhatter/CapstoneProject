@@ -18,21 +18,34 @@ import Select from "react-select";
 import { Country, State, City } from "country-state-city";
 import { nanoid } from "nanoid";
 import useFromTextToCoord from "../../hooks/FromTextToCoord";
+import { topicOptions } from "../../data/topicOption";
 
 const IndirizziForm = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [country, setCountry] = useState(null);
-  const [city, setCity] = useState(null);
-  const [region, setRegion] = useState(null);
-  const [formData, setFormData] = useState({});
-  const [dataToCoord, setDataToCoord] = useState(null);
-
+  const [formData, setFormData] = useState({
+    country: "Italy",
+    region: "Piedmont",
+    city: "Turin",
+  });
+  const [dataToCoord, setDataToCoord] = useState(
+    `${formData.country},${formData.region}, ${formData.city}`
+  );
+  const [selectGeoloc, setSelectGeoloc] = useState(false);
+  const [changeMe, setChangeMe] = useState(1);
+  const [errorSearch, setErrorSearch] = useState(false);
   const formDataImport = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
   const coord = useFromTextToCoord(dataToCoord);
+  console.log(coord);
+
+  const renderErrorSeach = () => (
+    <div className="errorSearch">
+      <span className="Error">Errore seleziona un paese valido</span>
+    </div>
+  );
 
   const countryData = () => {
     const countries = Country.getAllCountries().filter(
@@ -66,9 +79,18 @@ const IndirizziForm = () => {
   };
 
   const dispatch = useDispatch();
-  const coordthis = useGeoloc(true);
-  const Selected = async () => {
+  const coordthis = useGeoloc(selectGeoloc);
+  useEffect(() => {
     dispatch(CoordUpdate(coordthis));
+  }, [changeMe, selectGeoloc, coordthis]);
+
+  const Selected = (e) => {
+    setSelectGeoloc((prev) => {
+      return !prev ? true : true;
+    });
+    setChangeMe((prev) => {
+      return prev + 1;
+    });
   };
 
   const handleChange = (selectedOption) => {
@@ -76,11 +98,6 @@ const IndirizziForm = () => {
     console.log(selectedOption);
   };
 
-  const topicsOptions = [
-    { value: "topic1", label: "Topic 1" },
-    { value: "topic2", label: "Topic 2" },
-    { value: "topic3", label: "Topic 3" },
-  ];
   const searchLocations = (e) => {
     e.preventDefault();
     dispatch(
@@ -88,9 +105,17 @@ const IndirizziForm = () => {
         topics: selectedOption,
         paese: formData.country,
         citta: formData.city,
+        regione: formData.region,
       })
     );
-    console.log("clicked");
+    if (coord) {
+      setErrorSearch(false);
+      dispatch(
+        CoordUpdate({ latitude: coord[0].lat, longitude: coord[0].lon })
+      );
+    } else {
+      setErrorSearch(true);
+    }
   };
 
   const dataToGet = () => {};
@@ -100,13 +125,19 @@ const IndirizziForm = () => {
       <Col sm={12} md={10} lg={8} xl={6}>
         <Form className="FormArea" onSubmit={searchLocations}>
           <Form.Group className="mb-3 campiForm" controlId="formBasicEmail">
-            <Button variant="primary" onClick={Selected} className="Geoloc">
+            <Button
+              variant="primary"
+              onClick={() => Selected(coordthis)}
+              onBlur={() => Selected(coordthis)}
+              className="Geoloc"
+            >
               <FontAwesomeIcon icon={faLocationDot} />
             </Button>
             <div className="InputArea">
               <div className="Paese">
                 <select
                   value={formData.country}
+                  defaultValue={"Italy"}
                   type="text"
                   placeholder="Paese"
                   name="country"
@@ -114,6 +145,9 @@ const IndirizziForm = () => {
                     formDataImport(e);
                     setCountry(e.target.value);
                     setDataToCoord(`${e.target.value}`);
+                    setFormData((prev) => {
+                      return { ...prev, region: null };
+                    });
                   }}
                 >
                   {countryData() &&
@@ -131,7 +165,7 @@ const IndirizziForm = () => {
                   name="region"
                   onChange={(e) => {
                     formDataImport(e);
-                    setDataToCoord(`${country}, ${e.target.value}`);
+                    setDataToCoord(`${formData.country}, ${e.target.value}`);
                   }}
                 >
                   {formData.country &&
@@ -149,7 +183,9 @@ const IndirizziForm = () => {
                   name="city"
                   onChange={(e) => {
                     formDataImport(e);
-                    setDataToCoord(`${country}, ${e.target.value}`);
+                    setDataToCoord(
+                      `${formData.country},${formData.region}, ${e.target.value}`
+                    );
                   }}
                 >
                   {formData.region &&
@@ -162,11 +198,12 @@ const IndirizziForm = () => {
                 <Select
                   className="Topics"
                   isMulti
-                  options={topicsOptions}
+                  options={topicOptions}
                   placeholder="Seleziona..."
                   onChange={handleChange}
                 />
               </div>
+              {errorSearch && renderErrorSeach()}
             </div>
             <Button variant="primary" type="submit">
               <FontAwesomeIcon icon={faMagnifyingGlass} />
