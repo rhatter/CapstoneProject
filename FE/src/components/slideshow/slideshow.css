@@ -39,3 +39,26 @@
 .react-slideshow-container path {
   fill: white;
 }
+
+.back-img {
+  background-position: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(142, 170, 189);
+  color: white;
+  height: 35rem;
+  align-items: center;
+}
+
+.video {
+  position: absolute;
+  z-index: 0;
+}
+.coverText {
+  z-index: 1;
+  font-size: 3rem;
+  padding: 2rem;
+  font-family: "Bebas Neue", sans-serif;
+  text-align: center;
+}

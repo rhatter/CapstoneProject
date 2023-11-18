@@ -8,6 +8,10 @@ import store from "./app/store";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
+    <style>
+      @import
+      url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@600;700;800&display=swap');
+    </style>
     <Provider store={store}>
       <link
         rel="stylesheet"

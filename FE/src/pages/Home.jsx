@@ -8,7 +8,7 @@ import useFromTextToCoord from "../hooks/FromTextToCoord";
 import IndirizziForm from "../components/IndirizziForm/IndirizziForm";
 import { nanoid } from "nanoid";
 import Slideshow from "../components/slideshow/slideshow";
-
+import VideoBox from "../components/VideoBox/VideoBox";
 function Home() {
   const [user, setUser] = useState(null);
 
@@ -30,11 +30,16 @@ function Home() {
       <div className="homeNav">
         <MyNavBar />
       </div>
+
       <Slideshow></Slideshow>
+      <div className="titleText">
+        <span>Scopri il mondo intorno a te</span>
+      </div>
       <div>
         {1 === 0 && <SearchBar />}
-        <Maps />
+
         <IndirizziForm />
+        <Maps />
       </div>
       <Articles />
     </>

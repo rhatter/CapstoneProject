@@ -25,3 +25,19 @@
 .homeNav > .navbar {
   background-color: #7793b8 !important;
 }
+
+.titleText {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+}
+.titleText span {
+  font-size: 1.6rem;
+  width: fit-content;
+  border-top: #7793b899 solid 2px;
+  color: #7793b8;
+  border-bottom: #7793b899 solid 2px;
+  padding: 2rem 0;
+  padding-top: 1.5rem;
+}

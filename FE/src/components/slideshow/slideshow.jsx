@@ -2,7 +2,8 @@ import React from "react";
 import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 import "./slideshow.css";
-
+import VideoBox from "../VideoBox/VideoBox";
+import { Col } from "react-bootstrap";
 const spanStyle = {
   padding: "20px",
   background: "#efefef",
@@ -18,16 +19,21 @@ const divStyle = {
 };
 const slideImages = [
   {
-    url: "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
-    caption: "Slide 1",
+    url: "https://res.cloudinary.com/dhknlp2bn/video/upload/v1700272036/postsImage/k7tngcvhu72fzhdcxdzz.mp4",
+    caption: `Tra le strade, le storie e la cultura di ogni città`,
   },
   {
-    url: "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
-    caption: "Slide 2",
+    url: "https://res.cloudinary.com/dhknlp2bn/video/upload/v1700272305/production_id_4912725_1080p_i6i1oq.mp4",
+    caption:
+      "Tra sapori irresistibili, tradizioni gastronomiche e delizie locali",
   },
   {
-    url: "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
-    caption: "Slide 3",
+    url: "https://res.cloudinary.com/dhknlp2bn/video/upload/v1700272596/production_id_4125025_1080p_mcipmk.mp4",
+    caption: "Tra gli alberi e i sentieri nascosti della natura piiù verde",
+  },
+  {
+    url: "https://res.cloudinary.com/dhknlp2bn/video/upload/v1700272855/production_id_3987748_1080p_oszkgc.mp4",
+    caption: "Esplora musei, gallerie e strade dalle storie millenarie",
   },
 ];
 
@@ -38,9 +44,11 @@ const Slideshow = () => {
         {slideImages.map((slideImage, index) => (
           <div key={index}>
             <div
-              style={{ ...divStyle, backgroundImage: `url(${slideImage.url})` }}
+              className="back-img"
+              style={{ backgroundImage: `url(${slideImage.url})` }}
             >
-              <span style={spanStyle}>{slideImage.caption}</span>
+              <VideoBox e={slideImage.url}></VideoBox>
+              <span className="coverText">{slideImage.caption}</span>
             </div>
           </div>
         ))}
