@@ -27,7 +27,7 @@ function SingleArticle({ post, modify, articleID }) {
 
   return (
     <>
-      <Col className="cardArea" xs={12} lg={12} xl={6}>
+      <Col className="cardArea" sm={12} md={8} xl={6}>
         <div
           className="Card"
           onClick={() => {

@@ -159,6 +159,6 @@ select:not([size]) {
 
 .FormSpace {
   position: sticky;
-  top: 0;
+  top: -1px;
   z-index: 3;
 }

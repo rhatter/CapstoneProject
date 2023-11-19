@@ -7,6 +7,7 @@ export const filteredArticle = createSlice({
     data: null,
     error: null,
     loading: false,
+    payload: false,
   },
   reducers: {
     setArticles: (state, action) => {
@@ -20,15 +21,19 @@ export const filteredArticle = createSlice({
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
+    setPayload: (state, action) => {
+      state.payload = action.payload;
+    },
   },
 });
 
-export const { setArticles, setError, setLoading } = filteredArticle.actions;
+export const { setArticles, setError, setLoading, setPayload } =
+  filteredArticle.actions;
 
 // Azione asincrona per ottenere gli articoli
 export const getArticles = (payload) => async (dispatch) => {
   dispatch(setLoading(true));
-  console.log(payload);
+  dispatch(setPayload(payload));
   try {
     const response = await axios.post(
       `${process.env.REACT_APP_URL}/post/byLocation`,

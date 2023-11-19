@@ -12,10 +12,11 @@ function ArticlesSection() {
   const [slideMe, setSlideMe] = useState("-100%");
   const [topicSelected, setTopicSelected] = useState([
     false,
-    false,
-    false,
     true,
+    false,
+    false,
   ]);
+
   useEffect(() => {
     shuffle(randomTopic);
   }, []);
@@ -88,6 +89,8 @@ function ArticlesSection() {
   };
 
   const selector = useSelector((select) => select);
+  const articles = selector.FilteredArticles.data;
+  console.log(articles);
   //   console.log(selector);
 
   let keyCounter = 111;
@@ -96,14 +99,16 @@ function ArticlesSection() {
     <>
       <div className="HeaderArea" key={4}>
         <Col sm={12} md={10} lg={8} xl={6} className="HeaderBar">
-          <div
-            data-number="1"
-            onClick={(e) => Slide(e)}
-            className={`ToopicButton ${topicSelected[0] && "selected"}`}
-            key={3}
-          >
-            <span>La tua ricerca</span>
-          </div>
+          {articles && (
+            <div
+              data-number="1"
+              onClick={(e) => Slide(e)}
+              className={`ToopicButton ${topicSelected[0] && "selected"}`}
+              key={3}
+            >
+              <span>La tua ricerca</span>
+            </div>
+          )}
           {selectedTopic.map((topic) => {
             return singleTopic(topic);
           })}
@@ -111,7 +116,7 @@ function ArticlesSection() {
       </div>
       <div className="ArticlesSlideshowArea" key={2}>
         <div className="ArticlesSlideshow" style={{ left: slideMe }}>
-          <Articles ArtKey={keyCounter} />
+          <Articles ArtKey={keyCounter} topic={false} />
           {selectedTopic.map((topic) => {
             keyCounter++;
             return <Articles topic={topic} key={"key" + keyCounter} />;

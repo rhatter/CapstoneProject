@@ -5,11 +5,16 @@
   flex-wrap: wrap;
   background-color: #93adcf;
   width: 100%;
+  padding-top: 2rem;
 }
 
 .ArticlesArea > div {
   display: flex;
-  justify-content: start;
+  justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
+}
+
+.ArticlesArea:first-child {
+  display: flex;
 }

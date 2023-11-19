@@ -13,6 +13,7 @@ import useFromTextToCoord from "../../hooks/FromTextToCoord";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useGeoloc from "../../hooks/Geoloc";
+import { topicOptions as topicsOptions } from "../../data/topicOption";
 
 const NewArticle = ({ state }, setRefresh) => {
   const userData = JSON.parse(localStorage.getItem("userLocalData"));
@@ -114,13 +115,6 @@ const NewArticle = ({ state }, setRefresh) => {
   };
 
   //topics option, da chiamare lato server ma non ora
-  const topicsOptions = [
-    { value: "sport", label: "Sport" },
-    { value: "food", label: "Cucina" },
-    { value: "museo", label: "Musei" },
-    { value: "storia", label: "Storico" },
-    { value: "art", label: "Artistico" },
-  ];
 
   //funzione che aggiunge al form data i topic selezionati
   const handleChange = (selectedOption) => {

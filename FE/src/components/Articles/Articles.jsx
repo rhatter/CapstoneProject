@@ -7,29 +7,18 @@ import "./Articles.css";
 import Pagination from "../pagination/Pagination";
 import { nanoid } from "nanoid";
 
-function Articles({ topic }) {
-  const [articlesData, setArticles] = useState([]);
-  useEffect(() => {
-    getArticles();
-  }, []);
-
-  async function getArticles() {
-    const Articles = await axios.get(`${process.env.REACT_APP_URL}/posts`);
-    setArticles(Articles.data.posts);
-    return Articles;
-  }
-
+function Articles({ topic, articles }) {
   const createArticles = () => {
     //console.log("article data", articlesData);
     return (
       <div className="ArticlesArea">
         <Col xs={12} md={12}>
-          <Pagination />
+          <Pagination topic={topic} articles={articles} />
         </Col>
       </div>
     );
   };
-  return <>{articlesData ? createArticles() : "mancato"}</>;
+  return <>{createArticles()}</>;
 }
 
 export default Articles;

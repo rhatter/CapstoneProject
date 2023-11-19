@@ -57,7 +57,7 @@ const Maps = () => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <Marker position={[e.value.latitude, e.value.longitude]}>
-            <Popup>Torino</Popup>
+            <Popup>Tu sei qui</Popup>
           </Marker>
           {articles &&
             articles.map((location) => {

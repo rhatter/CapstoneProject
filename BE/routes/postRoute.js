@@ -122,6 +122,55 @@ posts.get("/posts", async (req, res) => {
   }
 });
 
+//pagination filtrato
+posts.post("/posts", async (req, res) => {
+  const { page = 1, pageSize = 3 } = req.query;
+  const data = {};
+  if (req.body.country) {
+    data.country = req.body.country;
+  }
+  if (req.body.city) {
+    data.city = req.body.city;
+  }
+  if (req.body.region) {
+    data.region = req.body.region;
+  }
+
+  const topics = req.body.topics;
+
+  if (topics && topics.length > 0) {
+    data.topic = {
+      $elemMatch: {
+        $in: topics.map((topic) => topic.value),
+      },
+    };
+  }
+
+  console.log(data);
+  try {
+    const posts = await PostModel.find(data)
+      .populate("author")
+      .limit(pageSize)
+      .skip((page - 1) * pageSize);
+
+    const totalPosts = await (await PostModel.find(data)).length;
+    console.log(totalPosts);
+
+    res.status(200).send({
+      statusCode: 200,
+      currentPage: Number(page),
+      totalPages: Math.ceil(totalPosts / pageSize),
+      totalPosts,
+      posts,
+    });
+  } catch (e) {
+    res.status(500).send({
+      statusCode: 500,
+      message: "Errore interno del server",
+    });
+  }
+});
+
 //get single post
 posts.get("post/byid/:postID", async (req, res) => {
   const { postID } = req.params;
@@ -331,13 +380,21 @@ posts.post("/post/byLocation", async (req, res) => {
     region: req.body.region,
     city: req.body.city,
   };
-  console.log(req.body);
+
+  const topics = req.body.topics;
+
+  if (topics && topics.length > 0) {
+    data.topic = {
+      $elemMatch: {
+        $in: topics.map((topic) => topic.value),
+      },
+    };
+  }
+  console.log(data.topic);
+
+  console.log(data);
   try {
-    const posts = await PostModel.find({
-      country: data.country,
-      region: data.region,
-      city: data.city,
-    });
+    const posts = await PostModel.find(data);
     res.status(200).send({
       statusCode: 200,
       message: `Post trovati`,

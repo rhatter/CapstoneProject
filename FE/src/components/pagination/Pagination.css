@@ -48,3 +48,17 @@
   display: flex;
   align-items: center;
 }
+.paginationNumbers {
+  height: 4rem;
+  align-self: flex-end;
+}
+.cardArea {
+  height: fit-content;
+}
+
+.ArticlesArea:first-child {
+  height: 100%;
+}
+.ArticlesArea {
+  align-items: space-between;
+}
