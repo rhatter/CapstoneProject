@@ -142,7 +142,7 @@ textarea:focus-within {
 }
 
 .myArticlePage .box.collaps {
-  margin-top: calc(-53rem);
+  margin-top: calc(-56rem);
 
   /* height: 0rem; */
   z-index: -1;

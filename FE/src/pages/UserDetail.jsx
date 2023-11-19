@@ -27,6 +27,9 @@ function UserDetail() {
     <>
       <MyNavBar />
       <DetailedArticle post={thisPost} />
+      <div className="titleText">
+        <span>Scegli la tua prossima avventura</span>
+      </div>
       <NewComment bookId={bookId} setCommented={setCommented} />
       <Comments post={thisPost} />
     </>

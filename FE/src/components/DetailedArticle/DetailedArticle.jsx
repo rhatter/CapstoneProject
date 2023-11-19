@@ -3,6 +3,9 @@ import "./DetailedArticle.css";
 import { Col } from "react-bootstrap";
 import Comments from "../Comments/Comments";
 import NewComment from "../NewComment/NewComment";
+import Maps from "../Map/Maps";
+import { useDispatch } from "react-redux";
+import { CoordUpdate } from "../../reducers/generalCoord";
 
 function DetailedArticle({ post }) {
   const [firstLine, setFirstLine] = useState("");
@@ -25,6 +28,16 @@ function DetailedArticle({ post }) {
   useEffect(() => {
     allContent();
   }, [post]);
+  console.log("post", post);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (post.content) {
+      dispatch(
+        CoordUpdate({ latitude: post.coord.lat, longitude: post.coord.lon })
+      );
+    }
+  }, [post]);
 
   return (
     <div className="singleArticlePage">
@@ -43,9 +56,18 @@ function DetailedArticle({ post }) {
 
         <div className="contentArea">
           <div className="firstBlock">
-            <div className="authorphotoArea"></div>
-            <div className="authorNameArea">
-              <span>{post.author && post.author.name}</span>
+            <div className="stiked">
+              <div className="authorphotoArea">
+                <img
+                  src={post.author && post.author.usrImg}
+                  alt=""
+                  className="authorImg"
+                />
+              </div>
+
+              <div className="authorNameArea">
+                <span>{post.author && post.author.name}</span>
+              </div>
             </div>
           </div>
           <Col xs={12} md={8} className="centralBlock">
@@ -59,6 +81,9 @@ function DetailedArticle({ post }) {
             </div>
           </Col>
           <div className="lastBlock"></div>
+        </div>
+        <div className={`mapContainer `}>
+          <Maps />
         </div>
       </Col>
     </div>

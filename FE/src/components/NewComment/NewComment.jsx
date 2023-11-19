@@ -14,7 +14,7 @@ function NewComment({ bookId, setCommented }) {
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("userLocalData"));
     setPostData({ ...postData, postID: bookId, authorID: userData.id });
-    console.log("user data", userData);
+    //console.log("user data", userData);
   }, []);
 
   const PostNewComment = async () => {

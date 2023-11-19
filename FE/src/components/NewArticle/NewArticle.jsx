@@ -224,7 +224,7 @@ const NewArticle = ({ state }, setRefresh) => {
                   onSubmit={postUser}
                 >
                   <div className="titleArea">
-                    <span>Racconta la tua storia</span>
+                    <span>Nuova esperienza</span>
                   </div>
                   <div className="inputArea title">
                     <textarea
