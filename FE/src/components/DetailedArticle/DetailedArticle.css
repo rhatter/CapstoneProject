@@ -64,6 +64,7 @@
   justify-content: center;
 }
 .contentArea > .centralBlock {
+  width: 80%;
 }
 .contentArea > .firstBlock,
 .contentArea > .lastBlock {
@@ -76,6 +77,7 @@
 }
 .contentArea {
   margin-top: 1rem;
+  width: 100%;
 }
 
 .authorNameArea {

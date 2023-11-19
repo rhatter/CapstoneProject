@@ -91,6 +91,14 @@ function ArticlesSection() {
   const selector = useSelector((select) => select);
   const articles = selector.FilteredArticles.data;
   console.log(articles);
+
+  useEffect(() => {
+    if (articles) {
+      const variation = "0%";
+      setTopicSelected([true, false, false, false]);
+      setSlideMe(variation);
+    }
+  }, [articles]);
   //   console.log(selector);
 
   let keyCounter = 111;

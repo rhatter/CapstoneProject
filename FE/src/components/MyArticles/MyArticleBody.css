@@ -10,7 +10,8 @@
 }
 
 .MyArticleBack {
-  background-color: #34537b;
+  /* background-color: #34537b; */
+  background-color: white;
   min-height: 100vh;
   position: absolute;
   z-index: -1;
@@ -18,7 +19,8 @@
   width: 100%;
 }
 .MyArticlePage {
-  background-color: #34537b;
+  /* background-color: #34537b; */
+  background-color: white;
 }
 
 .MyArticlePage .cardArea {
@@ -37,7 +39,7 @@
 
 .modifyArticle * {
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.582);
+  color: #7793b8;
   transition: 0.3s ease;
   padding: 0.3rem;
   display: flex;
@@ -45,7 +47,7 @@
 }
 
 .modifyArticle:hover * {
-  color: white;
+  color: #4c6c96;
 }
 .modifyArticle {
   transition: 0.3s ease;

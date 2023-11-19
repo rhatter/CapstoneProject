@@ -59,12 +59,14 @@ const NewArticle = ({ state }, setRefresh) => {
 
   //funzione per chiamare i paesi filtrati per dare le option al select
   const countryData = () => {
+    console.log(Country.getAllCountries());
     const countries = Country.getAllCountries().filter(
       (e) =>
         e.currency === "EUR" ||
         e.currency === "USD" ||
         e.currency === "HRK" ||
-        e.currency === "GBP"
+        e.currency === "GBP" ||
+        e.currency === "DKK"
     );
     return countries;
   };
@@ -212,7 +214,7 @@ const NewArticle = ({ state }, setRefresh) => {
   return (
     <>
       <div className={commenting ? "box visibl" : "box collaps"}>
-        <Col xs={12} md={9} lg={6} xl={5}>
+        <Col xs={12} md={8} lg={6} xl={5}>
           <div className="newArticlePage">
             <div className="commentArea">
               <div className="formArea">

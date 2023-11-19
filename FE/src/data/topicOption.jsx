@@ -9,4 +9,6 @@ export const topicOptions = [
   { value: "sport", label: "Sport" },
   { value: "monuments", label: "Monumenti" },
   { value: "streetfood", label: "Street food" },
+  { value: "science", label: "Scienza" },
+  { value: "creativity", label: "Creatività" },
 ];

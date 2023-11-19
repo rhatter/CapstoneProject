@@ -3,7 +3,7 @@
   justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
-  background-color: #93adcf;
+  /* background-color: #93adcf; */
   width: 100%;
   padding-top: 2rem;
 }

@@ -42,6 +42,9 @@ function MyArticles() {
           state={{ commenting: commenting, setCommenting: setCommenting }}
           setRefresh={setRefresh}
         />
+        <div className="titleText">
+          <span>I tuoi posti preferiti</span>
+        </div>
         <MyArticlesBody refresh={refresh} articles={articles} />
       </div>
     </>

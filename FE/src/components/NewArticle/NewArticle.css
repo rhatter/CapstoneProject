@@ -7,6 +7,15 @@
   width: 100%;
   justify-content: center;
 }
+
+.formArea {
+  background-color: #7793b8;
+  transition: 0.3s ease;
+  padding-top: 1rem;
+}
+.formArea:focus-within {
+  background-color: #4c6c96;
+}
 .newArticlePage .formArea textarea,
 .newArticlePage .formArea select,
 .newArticlePage .formArea label {
@@ -120,18 +129,20 @@ textarea:focus-within {
   margin-top: 0rem;
   height: auto;
   /* height: 53rem; */
-  padding-bottom: 2rem;
+  padding-top: 1rem;
+  margin-top: 1px;
   z-index: 3;
   position: relative;
   display: flex;
   justify-content: center;
   opacity: 100;
   background-color: #34537b;
+  background-color: white;
   border-bottom: 2px solid white;
 }
 
 .myArticlePage .box.collaps {
-  margin-top: -53rem;
+  margin-top: calc(-53rem);
 
   /* height: 0rem; */
   z-index: -1;
@@ -140,6 +151,7 @@ textarea:focus-within {
 }
 .myArticlePage .commentArea {
   width: 100%;
+  padding: 0;
 }
 .inputArea.country {
   justify-content: space-between;
