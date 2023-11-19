@@ -29,7 +29,7 @@ const slideImages = [
   },
   {
     url: "https://res.cloudinary.com/dhknlp2bn/video/upload/v1700272596/production_id_4125025_1080p_mcipmk.mp4",
-    caption: "Tra gli alberi e i sentieri nascosti della natura piiù verde",
+    caption: "Tra gli alberi e i sentieri nascosti della natura più verde",
   },
   {
     url: "https://res.cloudinary.com/dhknlp2bn/video/upload/v1700272855/production_id_3987748_1080p_oszkgc.mp4",

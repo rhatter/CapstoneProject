@@ -91,7 +91,7 @@
 }
 
 .FormArea {
-  padding: 2rem 1rem;
+  padding: 1rem 1rem;
   width: 100%;
   display: flex;
 }
@@ -131,6 +131,7 @@
 .FormSpace {
   display: flex;
   justify-content: center;
+  background-color: white;
 }
 
 .InputArea .Topics .css-1p3m7a8-multiValue {
@@ -154,4 +155,10 @@
 }
 select:not([size]) {
   background: none;
+}
+
+.FormSpace {
+  position: sticky;
+  top: 0;
+  z-index: 3;
 }

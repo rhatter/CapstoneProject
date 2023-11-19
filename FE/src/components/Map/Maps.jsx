@@ -22,7 +22,7 @@ const Maps = () => {
   const coord = useSelector((select) => select);
   const selector = useSelector((select) => select);
   const articles = selector.FilteredArticles.data;
-  console.log(articles);
+  // console.log(articles);
 
   const [mappaRenderizzata, setMappaRenderizzata] = useState(null);
 
@@ -37,9 +37,10 @@ const Maps = () => {
   useEffect(() => {
     if (coord.coord.value.latitude) {
       setMappaRenderizzata(mappa(coord.coord));
-      console.log(mappa(coord.coord));
+      // console.log(mappa(coord.coord));
     }
   }, [coord]);
+  let markerKey = 0;
 
   const mappa = (e) => {
     return (
@@ -60,8 +61,12 @@ const Maps = () => {
           </Marker>
           {articles &&
             articles.map((location) => {
+              markerKey++;
               return (
-                <Marker position={[location.coord.lat, location.coord.lon]}>
+                <Marker
+                  position={[location.coord.lat, location.coord.lon]}
+                  key={`markerKey${markerKey}`}
+                >
                   <Popup>{location.title}</Popup>
                 </Marker>
               );

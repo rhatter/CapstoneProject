@@ -5,10 +5,10 @@ import { useState, useEffect } from "react";
 import SingleArticle from "../SigleArticle/SingleArticle";
 import "./Articles.css";
 import Pagination from "../pagination/Pagination";
+import { nanoid } from "nanoid";
 
-function Articles() {
+function Articles({ topic }) {
   const [articlesData, setArticles] = useState([]);
-
   useEffect(() => {
     getArticles();
   }, []);

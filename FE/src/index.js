@@ -12,6 +12,10 @@ root.render(
       @import
       url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@600;700;800&display=swap');
     </style>
+    <style>
+      @import
+      url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@600;700;800&family=Raleway:wght@200;300;400;500;600;700;800;900&display=swap');
+    </style>
     <Provider store={store}>
       <link
         rel="stylesheet"

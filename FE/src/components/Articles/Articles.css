@@ -4,6 +4,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   background-color: #93adcf;
+  width: 100%;
 }
 
 .ArticlesArea > div {

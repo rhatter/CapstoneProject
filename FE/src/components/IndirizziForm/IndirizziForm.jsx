@@ -39,7 +39,7 @@ const IndirizziForm = () => {
     setFormData({ ...formData, [name]: value });
   };
   const coord = useFromTextToCoord(dataToCoord);
-  console.log(coord);
+  // console.log(coord);
 
   const renderErrorSeach = () => (
     <div className="errorSearch">
@@ -137,7 +137,6 @@ const IndirizziForm = () => {
               <div className="Paese">
                 <select
                   value={formData.country}
-                  defaultValue={"Italy"}
                   type="text"
                   placeholder="Paese"
                   name="country"
@@ -176,6 +175,7 @@ const IndirizziForm = () => {
               </div>
               <div className="Paese">
                 <select
+                  aria-controls=""
                   value={formData.city}
                   id="countryInput"
                   type="text"

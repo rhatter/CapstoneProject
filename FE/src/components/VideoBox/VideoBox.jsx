@@ -11,7 +11,7 @@ const VideoBox = ({ e }) => {
     <video
       src={src()}
       controls=""
-      autoplay=""
+      autoPlay
       loop
       preload="auto"
       muted

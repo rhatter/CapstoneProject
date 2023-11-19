@@ -1,0 +1,62 @@
+.HeaderBar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.ToopicButton {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  width: min-content;
+  width: 33%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.ToopicButton span {
+  font-family: "Raleway", sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  width: min-content;
+  color: #7793b8;
+  transition: 0.3s ease;
+  width: 100%;
+  pointer-events: none;
+}
+.ToopicButton:hover span {
+  color: #34537b;
+}
+.HeaderArea {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.ArticlesSlideshowArea {
+  width: 100%;
+  overflow: hidden;
+}
+.ArticlesSlideshow {
+  width: 400%;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  transition: 0.4s ease;
+  left: -100%;
+}
+
+.ToopicButton.selected {
+  border-bottom: 0.4rem solid #34537b;
+}
+.ToopicButton {
+  border-bottom: 0.4rem solid #ffffff;
+  transition: 0.6s ease;
+}
+
+.ToopicButton.selected span {
+  color: #34537b;
+  font-weight: 700;
+}
+.ToopicButton span {
+  padding-bottom: 0.5rem;
+}

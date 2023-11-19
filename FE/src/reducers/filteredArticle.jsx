@@ -28,13 +28,14 @@ export const { setArticles, setError, setLoading } = filteredArticle.actions;
 // Azione asincrona per ottenere gli articoli
 export const getArticles = (payload) => async (dispatch) => {
   dispatch(setLoading(true));
-
+  console.log(payload);
   try {
     const response = await axios.post(
       `${process.env.REACT_APP_URL}/post/byLocation`,
       payload
     );
     dispatch(setArticles(response.data.payload));
+    console.log(response.data.payload);
   } catch (err) {
     dispatch(setError(err));
   } finally {
