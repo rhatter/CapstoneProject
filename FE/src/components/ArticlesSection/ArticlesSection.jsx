@@ -16,11 +16,16 @@ function ArticlesSection() {
     false,
     false,
   ]);
-
+  const [selectedTopic, setselectedTopic] = useState([]);
+  let randomTopic = [];
   useEffect(() => {
-    shuffle(randomTopic);
-  }, []);
-  let randomTopic = [...topicOptions];
+    randomTopic = shuffle(topicOptions);
+    setselectedTopic([
+      { ...randomTopic[0], name: 2 },
+      { ...randomTopic[1], name: 3 },
+      { ...randomTopic[2], name: 4 },
+    ]);
+  }, [topicOptions]);
 
   function shuffle(array) {
     let currentIndex = array.length,
@@ -41,12 +46,7 @@ function ArticlesSection() {
 
     return array;
   }
-
-  const selectedTopic = [
-    { ...randomTopic[0], name: 2 },
-    { ...randomTopic[1], name: 3 },
-    { ...randomTopic[2], name: 4 },
-  ];
+  console.log("random topic", randomTopic);
 
   const singleTopic = (topic) => {
     return (
@@ -117,18 +117,20 @@ function ArticlesSection() {
               <span>La tua ricerca</span>
             </div>
           )}
-          {selectedTopic.map((topic) => {
-            return singleTopic(topic);
-          })}
+          {topicSelected &&
+            selectedTopic.map((topic) => {
+              return singleTopic(topic);
+            })}
         </Col>
       </div>
       <div className="ArticlesSlideshowArea" key={2}>
         <div className="ArticlesSlideshow" style={{ left: slideMe }}>
           <Articles ArtKey={keyCounter} topic={false} />
-          {selectedTopic.map((topic) => {
-            keyCounter++;
-            return <Articles topic={topic} key={"key" + keyCounter} />;
-          })}
+          {topicSelected &&
+            selectedTopic.map((topic) => {
+              keyCounter++;
+              return <Articles topic={topic} key={"key" + keyCounter} />;
+            })}
         </div>
       </div>
     </>
