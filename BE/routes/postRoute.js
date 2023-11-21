@@ -154,7 +154,7 @@ posts.post("/posts", async (req, res) => {
       .skip((page - 1) * pageSize);
 
     const totalPosts = await (await PostModel.find(data)).length;
-    console.log(totalPosts);
+    //console.log(totalPosts);
 
     res.status(200).send({
       statusCode: 200,
@@ -172,11 +172,29 @@ posts.post("/posts", async (req, res) => {
 });
 
 //get single post
-posts.get("post/byid/:postID", async (req, res) => {
+posts.get("/posts/last/:postnumber", async (req, res) => {
+  const { postnumber } = req.params;
+  console.log(postnumber);
+  try {
+    const lastPosts = await PostModel.find()
+      .sort({ createdAt: "desc" })
+      .limit(postnumber);
+
+    res.status(200).send(lastPosts);
+  } catch (error) {
+    res.status(400).send({
+      status: 400,
+      error: error,
+    });
+  }
+});
+
+//chiamo gli ultimi post
+posts.get("/post/byid/:postID", async (req, res) => {
   const { postID } = req.params;
   try {
     const postByID = await PostModel.findById(postID).populate("author");
-    console.log(postByID);
+    //console.log(postByID);
     res.status(200).send(postByID);
   } catch (error) {
     res.status(400).send({
@@ -390,9 +408,9 @@ posts.post("/post/byLocation", async (req, res) => {
       },
     };
   }
-  console.log(data.topic);
+  //console.log(data.topic);
 
-  console.log(data);
+  //console.log(data);
   try {
     const posts = await PostModel.find(data);
     res.status(200).send({

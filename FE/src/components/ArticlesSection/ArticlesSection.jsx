@@ -46,7 +46,7 @@ function ArticlesSection() {
 
     return array;
   }
-  console.log("random topic", randomTopic);
+  // console.log("random topic", randomTopic);
 
   const singleTopic = (topic) => {
     return (
@@ -90,7 +90,7 @@ function ArticlesSection() {
 
   const selector = useSelector((select) => select);
   const articles = selector.FilteredArticles.data;
-  console.log(articles);
+  // console.log(articles);
 
   useEffect(() => {
     if (articles) {

@@ -13,10 +13,12 @@ import MyArticles from "./pages/MyArticles";
 import ModifyArticle from "./pages/ModifyArticle";
 import { nanoid } from "nanoid";
 import "react-slideshow-image/dist/styles.css";
+import ScrollToTop from "./hooks/ScrollTop";
 
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route exact path="/" element={<Home />} key={nanoid()} />
         <Route path="/book/:bookId" element={<Details />} key={nanoid()} />
@@ -43,7 +45,6 @@ function App() {
             key={nanoid()}
           />
         </Route>
-
         <Route path="*" element={<Error />} key={nanoid()} />
       </Routes>
     </BrowserRouter>

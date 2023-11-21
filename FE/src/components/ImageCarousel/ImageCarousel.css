@@ -1,0 +1,57 @@
+.imageCarousel {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  overflow: hidden;
+}
+.imgCarouselArea img {
+  object-fit: cover;
+  width: 100%;
+  aspect-ratio: 1;
+}
+element.style {
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.SingleImageCard {
+  aspect-ratio: 1;
+  position: relative;
+}
+.cardHover {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: 0.4s ease;
+  background-color: #7793b8d8;
+  opacity: 0%;
+  flex-direction: column;
+}
+.cardHover:hover {
+  opacity: 100%;
+}
+.cardHover .title {
+  font-size: 1.8rem;
+  color: white;
+}
+.cardHover .indirizzo {
+  font-size: 1rem;
+  color: white;
+}
+.cardHover span {
+  text-shadow: 1px 1px 1px black, 1px 1px 1px black;
+}
+
+.imgCarouselArea {
+  position: relative;
+}
+
+.carouselImgCard {
+  margin-bottom: 2rem;
+}

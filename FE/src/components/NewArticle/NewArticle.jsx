@@ -59,7 +59,7 @@ const NewArticle = ({ state }, setRefresh) => {
 
   //funzione per chiamare i paesi filtrati per dare le option al select
   const countryData = () => {
-    console.log(Country.getAllCountries());
+    // console.log(Country.getAllCountries());
     const countries = Country.getAllCountries().filter(
       (e) =>
         e.currency === "EUR" ||

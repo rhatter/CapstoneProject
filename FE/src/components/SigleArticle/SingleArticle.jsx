@@ -7,6 +7,7 @@ import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DeletButton from "../DeleteButton/DeletButton";
 import { nanoid } from "nanoid";
+import { topicOptions } from "../../data/topicOption";
 
 function SingleArticle({ post, modify, articleID }) {
   const [commentable, setCommentable] = useState(false);
@@ -54,7 +55,13 @@ function SingleArticle({ post, modify, articleID }) {
             <div className="categoryArea">
               {post.topic.map((e) => (
                 <span key={nanoid()} className="category">
-                  {e}
+                  {topicOptions &&
+                    topicOptions[
+                      topicOptions.findIndex((option) => option.value === e)
+                    ] &&
+                    topicOptions[
+                      topicOptions.findIndex((option) => option.value === e)
+                    ].label}
                 </span>
               ))}
             </div>
