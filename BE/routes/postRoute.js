@@ -122,6 +122,44 @@ posts.get("/posts", async (req, res) => {
   }
 });
 
+//indirizzi città/paese/regione
+posts.get("/region", async (req, res) => {
+  try {
+    let data = [];
+    const posts = await PostModel.find();
+    const dest = [];
+
+    for (const item of posts) {
+      // Verifica se l'elemento esiste già nell'array di destinazione
+      const exists = dest.some(
+        (el) =>
+          el.country === item.country &&
+          el.region === item.region &&
+          el.city === item.city
+      );
+
+      // Se non esiste, esegui il push nell'array di destinazione
+      if (!exists) {
+        dest.push({
+          country: item.country,
+          region: item.region,
+          city: item.city,
+        });
+      }
+    }
+
+    res.status(200).send({
+      statusCode: 200,
+      dest,
+    });
+  } catch (e) {
+    res.status(500).send({
+      statusCode: 500,
+      message: "Errore interno del server",
+    });
+  }
+});
+
 //pagination filtrato
 posts.post("/posts", async (req, res) => {
   const { page = 1, pageSize = 3 } = req.query;

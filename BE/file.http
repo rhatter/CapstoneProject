@@ -87,3 +87,7 @@ GET http://localhost:5050/post/byid/653840f7984fc8bff30999c6 HTTP/1.1
 
 ####
 DELETE http://localhost:5050/posts/delete/653840f8984fc8bff30999c8 HTTP/1.1
+
+
+###
+GET http://localhost:5050/region HTTP/1.1

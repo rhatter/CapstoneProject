@@ -75,8 +75,8 @@ function DetailedArticle({ post }) {
               <p>{firstLine}</p>
             </div>
             <div className="restOfContent">
-              {restOfTheLines.map((line) => (
-                <p>{line}</p>
+              {restOfTheLines.map((line, index) => (
+                <p key={index}>{line}</p>
               ))}
             </div>
           </Col>

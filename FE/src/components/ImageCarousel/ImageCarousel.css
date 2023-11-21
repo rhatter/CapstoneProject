@@ -33,11 +33,20 @@ element.style {
   opacity: 0%;
   flex-direction: column;
 }
+
+.cardHover span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 4;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
 .cardHover:hover {
   opacity: 100%;
 }
 .cardHover .title {
-  font-size: 1.8rem;
+  font-size: 1.2rem;
   color: white;
 }
 .cardHover .indirizzo {
@@ -54,4 +63,5 @@ element.style {
 
 .carouselImgCard {
   margin-bottom: 2rem;
+  overflow: hidden;
 }

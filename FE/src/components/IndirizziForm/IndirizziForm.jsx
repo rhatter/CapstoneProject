@@ -19,6 +19,7 @@ import { Country, State, City } from "country-state-city";
 import { nanoid } from "nanoid";
 import useFromTextToCoord from "../../hooks/FromTextToCoord";
 import { topicOptions } from "../../data/topicOption";
+import axios from "axios";
 
 const IndirizziForm = () => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -28,6 +29,39 @@ const IndirizziForm = () => {
     region: "Piedmont",
     city: "Torino",
   });
+  const [DataFromServer, setcountryFromServer] = useState(null);
+
+  // chiamata per capire come popolare le proposte
+  const getDataToOption = async () => {
+    const gettingComments = await axios.get(
+      `${process.env.REACT_APP_URL}/region`
+    );
+    setcountryFromServer(gettingComments);
+  };
+
+  const countryFromServer = (posts) => {
+    const dest = [];
+    for (const item of posts) {
+      // Verifica se l'elemento esiste già nell'array di destinazione
+      const exists = dest.some(
+        (el) =>
+          el.country === item.country &&
+          el.region === item.region &&
+          el.city === item.city
+      );
+
+      // Se non esiste, esegui il push nell'array di destinazione
+      if (!exists) {
+        dest.push({
+          country: item.country,
+          region: item.region,
+          city: item.city,
+        });
+      }
+    }
+  };
+
+  //
   const [dataToCoord, setDataToCoord] = useState(
     `${formData.country},${formData.region}, ${formData.city}`
   );
@@ -40,13 +74,11 @@ const IndirizziForm = () => {
   };
   const coord = useFromTextToCoord(dataToCoord);
   // console.log(coord);
-
   const renderErrorSeach = () => (
     <div className="errorSearch">
       <span className="Error">Errore seleziona un paese valido</span>
     </div>
   );
-
   const countryData = () => {
     const countries = Country.getAllCountries().filter(
       (e) =>
