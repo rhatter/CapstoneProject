@@ -24,42 +24,40 @@ import axios from "axios";
 const IndirizziForm = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [country, setCountry] = useState(null);
-  const [formData, setFormData] = useState({
-    country: "Italy",
-    region: "Piedmont",
-    city: "Torino",
-  });
-  const [DataFromServer, setcountryFromServer] = useState(null);
+  const [formData, setFormData] = useState({});
+  const [filteredCountry, setcountryFromServer] = useState(null);
+  const [serverData, setServerData] = useState(null);
+  const [filteredRegion, setFilteredRegion] = useState(null);
+  const [filteredCity, setFilteredCity] = useState(null);
 
   // chiamata per capire come popolare le proposte
   const getDataToOption = async () => {
-    const gettingComments = await axios.get(
-      `${process.env.REACT_APP_URL}/region`
-    );
-    setcountryFromServer(gettingComments);
+    const data = await axios.get(`${process.env.REACT_APP_URL}/region`);
+    setServerData(data);
   };
 
-  const countryFromServer = (posts) => {
+  const countryFromServer = (posts, objName) => {
     const dest = [];
     for (const item of posts) {
       // Verifica se l'elemento esiste già nell'array di destinazione
-      const exists = dest.some(
-        (el) =>
-          el.country === item.country &&
-          el.region === item.region &&
-          el.city === item.city
-      );
+      const exists = dest.some((el) => el === item[objName]);
 
       // Se non esiste, esegui il push nell'array di destinazione
       if (!exists) {
-        dest.push({
-          country: item.country,
-          region: item.region,
-          city: item.city,
-        });
+        dest.push(item[objName]);
       }
     }
+    return dest;
   };
+  useEffect(() => {
+    getDataToOption();
+  }, []);
+  useEffect(() => {
+    // console.log(serverData);
+    if (serverData) {
+      setcountryFromServer(countryFromServer(serverData.data.dest, "country"));
+    }
+  }, [serverData]);
 
   //
   const [dataToCoord, setDataToCoord] = useState(
@@ -132,29 +130,43 @@ const IndirizziForm = () => {
 
   const searchLocations = (e) => {
     e.preventDefault();
-    dispatch(
-      getArticles({
-        topics: selectedOption,
-        country: formData.country,
-        city: formData.city,
-        region: formData.region,
-      })
-    );
-    if (coord) {
-      setErrorSearch(false);
+    if (formData.country && formData.city && formData.region) {
       dispatch(
-        CoordUpdate({ latitude: coord[0].lat, longitude: coord[0].lon })
+        getArticles({
+          topics: selectedOption,
+          country: formData.country,
+          city: formData.city,
+          region: formData.region,
+        })
       );
-    } else {
-      setErrorSearch(true);
+      if (coord) {
+        setErrorSearch(false);
+        dispatch(
+          CoordUpdate({ latitude: coord[0].lat, longitude: coord[0].lon })
+        );
+      } else {
+        setErrorSearch(true);
+      }
     }
   };
 
-  const dataToGet = () => {};
+  const filterRegion = (country, thisCountry, controller) => {
+    const startedArr = serverData.data.dest.filter(
+      (e) => e[controller] === country
+    );
+    const dest = countryFromServer(startedArr, thisCountry);
+    console.log("dest", dest);
+    if (controller === "country") {
+      setFilteredRegion(dest);
+    }
+    if (controller === "region") {
+      setFilteredCity(dest);
+    }
+  };
 
   return (
     <Col sm={12} className="FormSpace">
-      <Col sm={12} md={10} lg={8} xl={6}>
+      <Col xs={12} sm={12} md={10} lg={8} xl={6}>
         <Form className="FormArea" onSubmit={searchLocations}>
           <Form.Group className="mb-3 campiForm" controlId="formBasicEmail">
             <Button
@@ -179,11 +191,13 @@ const IndirizziForm = () => {
                     setFormData((prev) => {
                       return { ...prev, region: null, city: null };
                     });
+                    filterRegion(e.target.value, "region", "country");
                   }}
                 >
-                  {countryData() &&
-                    countryData().map((country) => (
-                      <option key={nanoid()}>{country.name}</option>
+                  <option value=" "> </option>
+                  {filteredCountry &&
+                    filteredCountry.map((country) => (
+                      <option key={nanoid()}>{country}</option>
                     ))}
                 </select>
               </div>
@@ -197,11 +211,13 @@ const IndirizziForm = () => {
                   onChange={(e) => {
                     formDataImport(e);
                     setDataToCoord(`${formData.country}, ${e.target.value}`);
+                    filterRegion(e.target.value, "city", "region");
                   }}
                 >
-                  {formData.country &&
-                    regionData().map((country) => (
-                      <option key={nanoid()}>{country.name}</option>
+                  <option value=" "> </option>
+                  {filteredRegion &&
+                    filteredRegion.map((region) => (
+                      <option key={nanoid()}>{region}</option>
                     ))}
                 </select>
               </div>
@@ -220,9 +236,10 @@ const IndirizziForm = () => {
                     );
                   }}
                 >
-                  {formData.region &&
-                    cityData().map((country) => (
-                      <option key={nanoid()}>{country.name}</option>
+                  <option value=" "> </option>
+                  {filteredCity &&
+                    filteredCity.map((country) => (
+                      <option key={nanoid()}>{country}</option>
                     ))}
                 </select>
               </div>

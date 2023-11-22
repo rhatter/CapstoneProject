@@ -64,7 +64,6 @@ function Home() {
       </div>
       <ArticlesSection />
       <ImageCarousel />
-      <Footer />
     </>
   );
 }

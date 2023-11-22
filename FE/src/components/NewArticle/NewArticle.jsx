@@ -15,7 +15,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useGeoloc from "../../hooks/Geoloc";
 import { topicOptions as topicsOptions } from "../../data/topicOption";
 
-const NewArticle = ({ state }, setRefresh) => {
+const NewArticle = ({ state, setRefresh, setLoading }) => {
   const userData = JSON.parse(localStorage.getItem("userLocalData"));
   const { commenting, setCommenting } = state;
   const { articleID } = useParams();
@@ -116,8 +116,6 @@ const NewArticle = ({ state }, setRefresh) => {
     }
   };
 
-  //topics option, da chiamare lato server ma non ora
-
   //funzione che aggiunge al form data i topic selezionati
   const handleChange = (selectedOption) => {
     setSelectedOption(selectedOption);
@@ -144,17 +142,9 @@ const NewArticle = ({ state }, setRefresh) => {
     }
   };
 
-  //funzione per renderizzare gli errori alle chiamate server
-  const renderRegisterError = () => {
-    return (
-      <div>
-        <span>{registerError}</span>
-      </div>
-    );
-  };
-
   const postUser = async (e) => {
     e.preventDefault();
+    setLoading(true);
     if (!sendable) {
       return;
     }
@@ -185,6 +175,13 @@ const NewArticle = ({ state }, setRefresh) => {
       );
       setCommenting(false);
       //window.location.reload(false);
+      setRefresh((prev) => prev + 1);
+      setLoading(false);
+      setFormData({
+        author: userData.id,
+      });
+      setThisPost({});
+      setSelectedOption(null);
     } catch (error) {
       //setRegisterError(error.response);
       //console.log(error.response);
@@ -264,6 +261,7 @@ const NewArticle = ({ state }, setRefresh) => {
                         setCountry(e.target.value);
                       }}
                     >
+                      <option value=" "> </option>
                       {countryData() &&
                         countryData().map((country) => (
                           <option key={nanoid()}>{country.name}</option>
@@ -280,6 +278,7 @@ const NewArticle = ({ state }, setRefresh) => {
                         setDataToCoord(`${country}, ${e.target.value}`);
                       }}
                     >
+                      <option value=" "> </option>
                       {formData.country &&
                         regionData().map((country) => (
                           <option key={nanoid()}>{country.name}</option>
@@ -296,6 +295,7 @@ const NewArticle = ({ state }, setRefresh) => {
                         setDataToCoord(`${country}, ${e.target.value}`);
                       }}
                     >
+                      <option value=" "> </option>
                       {formData.region &&
                         cityData().map((country) => (
                           <option key={nanoid()}>{country.name}</option>

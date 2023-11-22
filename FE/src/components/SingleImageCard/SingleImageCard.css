@@ -1,0 +1,21 @@
+.imgCarouselArea .scopri {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.833);
+  aspect-ratio: 1;
+  width: 1.4rem;
+  height: 1.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  transition: 0.3s ease;
+}
+
+.imgCarouselArea .scopri:hover {
+  background-color: rgba(255, 255, 255, 0.662);
+  transform: scale(1.2);
+  color: black;
+}

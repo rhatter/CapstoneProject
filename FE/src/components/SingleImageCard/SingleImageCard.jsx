@@ -1,8 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./SingleImageCard.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 const SingleImageCard = ({ post, thatKey }) => {
-  console.log(post);
+  // console.log(post);
   const userData = JSON.parse(localStorage.getItem("userLocalData"));
   const dirToDetails = () => {
     if (userData) {
@@ -15,15 +18,18 @@ const SingleImageCard = ({ post, thatKey }) => {
   };
 
   return (
-    <Link to={dirToDetails()}>
-      <div className="imgCarouselArea">
-        <div className="cardHover">
-          <span className="title">{post.title}</span>
-          <span className="indirizzo">{`${post.city}, ${post.country} `}</span>
-        </div>
-        <img src={post.cover} alt="" />
+    <div className="imgCarouselArea">
+      <div className="cardHover">
+        <span className="title">{post.title}</span>
+        <Link to={dirToDetails()}>
+          <div className="scopri">
+            <FontAwesomeIcon icon={faArrowRight} />
+          </div>
+        </Link>
+        <span className="indirizzo">{`${post.city}, ${post.country} `}</span>
       </div>
-    </Link>
+      <img src={post.cover} alt="" />
+    </div>
   );
 };
 

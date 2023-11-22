@@ -5,7 +5,9 @@ import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Provider } from "react-redux";
 import store from "./app/store";
+import Footer from "./components/Footer/Footer";
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
   <React.StrictMode>
     <style>
@@ -29,6 +31,7 @@ root.render(
         crossOrigin=""
       ></script>
       <App />
+      <Footer />
     </Provider>
   </React.StrictMode>
 );

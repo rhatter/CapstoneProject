@@ -8,12 +8,22 @@ import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { CSSProperties } from "react";
+import BarLoader from "react-spinners/GridLoader";
 
 function MyArticles() {
   const [commenting, setCommenting] = useState(false);
   const [refresh, setRefresh] = useState(0);
   const [articles, setArticle] = useState([]);
   const { userID } = useParams();
+  let [loading, setLoading] = useState(false);
+  let [color, setColor] = useState("#ffffff");
+
+  const override: CSSProperties = {
+    display: "block",
+    margin: "0 auto",
+    borderColor: "red",
+  };
 
   useEffect(() => {
     getArticles();
@@ -30,6 +40,7 @@ function MyArticles() {
       console.log(error);
     }
   };
+  const elevateSetState = (e) => setLoading(e);
 
   return (
     <>
@@ -41,10 +52,29 @@ function MyArticles() {
         <NewArticle
           state={{ commenting: commenting, setCommenting: setCommenting }}
           setRefresh={setRefresh}
+          setLoading={elevateSetState}
         />
         <div className="titleText">
           <span>I tuoi posti preferiti</span>
         </div>
+        {loading && (
+          <div
+            className="spinnerBox"
+            style={{
+              position: "absolute",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              zIndex: 99,
+              width: "100%",
+              height: "100vh",
+              top: "10rem",
+              pointerEvents: "none",
+            }}
+          >
+            <BarLoader color="white" />
+          </div>
+        )}
         <MyArticlesBody refresh={refresh} articles={articles} />
       </div>
     </>
